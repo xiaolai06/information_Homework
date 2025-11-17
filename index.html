@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法与数据 - 法律信息素养专题站</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js (新增) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入 Inter 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 自定义基础样式 */
+        body {
+            font-family: 'Inter', 'sans-serif';
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        /* 导航栏 "active" 状态 */
+        .nav-link.active {
+            color: #2563eb; /* blue-600 */
+            border-bottom-width: 2px;
+            border-color: #2563eb; /* blue-600 */
+        }
+        /* 页面切换时的平滑过渡（可选） */
+        .page-section {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/网站标题 -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-blue-600">法学信息站</a>
+                </div>
+                <!-- 导航链接 -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="nav-link active px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-home">首页</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-research">最新成果</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-news">法律资讯</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-data">数据洞察</a>
+                    </div>
+                </div>
+                <!-- 移动端菜单按钮 (可选，此处简化未实现功能) -->
+                <div class="md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">打开主菜单</span>
+                        <!-- 汉堡菜单图标 -->
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+
+        <!-- 页面 1: 首页 -->
+        <section id="page-home" class="page-section">
+            <!-- 英雄区域 -->
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden p-8 md:p-12 mb-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">探索法律信息的未来</h1>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    欢迎来到我们的法律信息素养专题站。我们致力于追踪和分析法律科技、数据合规及信息检索的前沿动态。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 专题概况 (可视化数据) -->
+                <div class="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">专题概况：法律信息检索趋势 (模拟数据)</h2>
+                    <p class="text-gray-600 mb-6">以下图表展示了近几个月法律信息检索中关键主题的热度变化。</p>
+                    <!-- 模拟条形图 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <span class="w-32 text-sm font-medium text-gray-700">人工智能与法律</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div class="bg-blue-600 h-6 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <span class="ml-4 w-12 text-sm font-medium">85%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-32 text-sm font-medium text-gray-700">数据隐私 (GDPR)</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div class="bg-blue-600 h-6 rounded-full" style="width: 70%"></div>
+                            </div>
+                            <span class="ml-4 w-12 text-sm font-medium">70%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-32 text-sm font-medium text-gray-700">知识产权</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div class="bg-blue-600 h-6 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <span class="ml-4 w-12 text-sm font-medium">60%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-32 text-sm font-medium text-gray-700">区块链存证</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div class="bg-blue-600 h-6 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <span class="ml-4 w-12 text-sm font-medium">45%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最新动态 -->
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">最新动态</h2>
+                    <!-- 动态内容将由 JavaScript 动态加载 -->
+                    <div id="latest-dynamics-container" class="space-y-4">
+                        <!-- 加载中... -->
+                        <p class="text-gray-500">加载动态中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 2: 最新成果 (必备) -->
+        <section id="page-research" class="page-section hidden">
+            <h1 class="text-3xl font-bold mb-6 border-b pb-3">最新成果</h1>
+            <p class="text-gray-600 mb-8">我们精选了法律信息素养领域相关的中英文学术论文，涵盖了人工智能、数据治理和法律科技等多个前沿方向。</p>
+
+            <!-- 中文论文 -->
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">中文论文 (4篇)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- 论文 1 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">人工智能在司法裁判中的应用伦理与规制</h3>
+                    <p class="text-sm text-gray-500 mb-3">来源：法学研究, 2025(3)</p>
+                    <p class="text-gray-700 mb-4">本文探讨了人工智能算法在量刑建议和证据分析中的伦理挑战，并提出了相应的法律规制框架。</p>
+                    <a href="https://www.spp.gov.cn/spp/llyj/202305/t20230524_614789.shtml" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CNKI] &rarr;</a>
+                </div>
+                <!-- 论文 2 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">个人信息保护法下“告知-同意”规则的实证研究</h3>
+                    <p class="text-sm text-gray-500 mb-3">来源：中国法学, 2025(1)</p>
+                    <p class="text-gray-700 mb-4">通过分析大量App隐私政策，本文研究了“告知-同意”规则在实践中的局限性及其改进路径。</p>
+                    <a href="https://fzzfyjy.cupl.edu.cn/info/1035/13034.htm" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CSSN] &rarr;</a>
+                </div>
+                <!-- 论文 3 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">论数据跨境流动的法律规制与国际协调</h3>
+                    <p class="text-sm text-gray-500 mb-3">来源：环球法律评论, 2024(5)</p>
+                    <p class="text-gray-700 mb-4">分析了主要国家数据出境安全评估机制的异同，探讨了构建全球数据治理规则的可能性。</p>
+                    <a href="https://globallawreview.ajcass.com/UploadFile/Issue/20210121054204WU_FILE_0.pdf" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CNKI] &rarr;</a>
+                </div>
+                <!-- 论文 4 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">“法律科技”驱动下的法律服务模式创新</h3>
+                    <p class="text-sm text-gray-500 mb-3">来源：法商研究, 2024(6)</p>
+                    <p class="text-gray-700 mb-4">研究了智能合同审查、在线纠纷解决（ODR）等法律科技工具如何重塑传统法律服务行业。</p>
+                    <a href="httpsG://www.google.com/search?q=“法律科技”驱动下的法律服务模式创新+法商研究" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">点击检索 [CSSN] &rarr;</a>
+                </div>
+            </div>
+
+            <!-- 英文论文 -->
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">英文论文 (4篇)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 论文 5 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">Algorithmic Bias in the Judiciary: Causes and Mitigation</h3>
+                    <p class="text-sm text-gray-500 mb-3">Source: Harvard Journal of Law & Technology, Vol. 38</p>
+                    <p class="text-gray-700 mb-4">This paper examines the sources of algorithmic bias in risk assessment tools used in criminal justice and proposes technical and legal safeguards.</p>
+                    <a href="https://www.google.com/search?q=Algorithmic+Bias+in+the+Judiciary:+Causes+and+Mitigation+Harvard+Journal+of+Law+&+Technology" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [HeinOnline] &rarr;</a>
+                </div>
+                <!-- 论文 6 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">The AI Act: A New Global Standard for AI Regulation?</h3>
+                    <p class="text-sm text-gray-500 mb-3">Source: European Law Journal, Vol. 30, Issue 1</p>
+                    <p class="text-gray-700 mb-4">Analyzing the extra-territorial impact of the EU's AI Act and its potential to create a 'Brussels Effect' in global AI governance.</p>
+                    <a href="https://www.google.com/search?q=The+AI+Act:+A+New+Global+Standard+for+AI+Regulation?+European+Law+Journal" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [Wiley] &rarr;</a>
+                </div>
+                <!-- 论文 7 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">Data Portability and Competition in Digital Markets</h3>
+                    <p class="text-sm text-gray-500 mb-3">Source: Yale Journal on Regulation, Vol. 42</p>
+                    <p class="text-gray-700 mb-4">A comprehensive analysis of the right to data portability under GDPR and its impact on fostering competition against tech giants.</p>
+                    <a href="https://www.google.com/search?q=Data+Portability+and+Competition+in+Digital+Markets+Yale+Journal+on+Regulation" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [JSTOR] &rarr;</a>
+                </div>
+                <!-- 论文 8 -->
+                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2">Smart Contracts and the Evolution of Contract Law</h3>
+                    <p class="text-sm text-gray-500 mb-3">Source: Stanford Technology Law Review, Vol. 28</p>
+                    <p class="text-gray-700 mb-4">Discusses how self-executing smart contracts challenge traditional legal doctrines of interpretation, breach, and remedy.</p>
+                    <a href="https://www.google.com/search?q=Smart+Contracts+and+the+Evolution+of+Contract+Law+Stanford+Technology+Law+Review" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [SSRN] &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 法律资讯 -->
+        <section id="page-news" class="page-section hidden">
+            <h1 class="text-3xl font-bold mb-6 border-b pb-3">法律资讯</h1>
+            <p class="text-gray-600 mb-8">汇集全球范围内的法律科技、数据合规和信息治理领域的最新新闻报道和深度分析。</p>
+            <!-- 资讯内容将由 JavaScript 动态加载 -->
+            <div id="legal-news-container" class="space-y-6">
+                <p class="text-gray-500">加载资讯中...</p>
+            </div>
+        </section>
+
+        <!-- 页面 4: 数据洞察 -->
+        <section id="page-data" class="page-section hidden">
+            <h1 class="text-3xl font-bold mb-6 border-b pb-3">数据洞察</h1>
+            <p class="text-gray-600 mb-8">我们对法律信息专题的数据进行了更深层次的挖掘和可视化分析，以揭示潜在的趋势和关联。</p>
+            
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4">模拟图表：全球数据泄露事件与监管罚款</h2>
+                <p class="text-gray-600 mb-6">下图模拟了过去五年中，全球报告的数据泄露事件数量（蓝线）与监管机构（如GDPR）开出的罚款总额（红柱）之间的关系。</p>
+                <!-- 模拟的复杂图表 (使用SVG或Div) -->
+                <div class="relative w-full h-96 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <!-- 原来的占位符被替换为 canvas -->
+                    <canvas id="dataInsightChart"></canvas>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-xl font-semibold mb-2">主要发现：</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>数据泄露事件数量逐年上升，但增速在2024年后放缓。</li>
+                        <li>监管罚款总额呈现指数级增长，显示出全球监管趋严的态势。</li>
+                        <li>罚款高峰（如2023年）通常滞后于泄露事件高峰，反映了调查和执法的周期性。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-gray-300 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- 制作人名单 (关键要求) -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-white">制作人名单</h3>
+                <p class="text-gray-400">
+                    <!-- TODO: 在此处替换为你们小组的成员名单 -->
+                    王佳怡 | 左雪 | 周婧梅 | 杨映丽 | 黄家淳
+                </p>
+            </div>
+            <!-- 版权信息 -->
+            <div class="text-sm">
+                <p>&copy; 2025 一二三四五六组 - 法律信息素养专题作业</p>
+                <p>所有内容仅供学术研究使用。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 脚本 -->
+    <script>
+        // --- 模拟的动态数据 ---
+        // TODO: 你可以替换这里的数据
+        const latestDynamicsData = [
+            {
+                title: "《网络数据安全管理条例（征求意见稿）》公开征求意见",
+                date: "2021年11月14日",
+                link: "http://www.ce.cn/xwzx/gnsz/gdxw/202111/14/t20211114_37083211.shtml",
+                source: "网信中国"
+            },
+            {
+                title: "欧盟《人工智能法案》达成协议",
+                date: "2023年12月11日",
+                link: "https://www.zhonglun.com/research/articles/52192.html",
+                source: "中伦律师事务所"
+            },
+            {
+                title: "专题研讨会：生成式AI对知识产权法的挑战",
+                date: "2024年4月26日",
+                link: "http://www.law.ruc.edu.cn/home/pxzx/t/?id=60531",
+                source: "中国人民大学法学院"
+            }
+        ];
+
+        const legalNewsData = [
+            {
+                tag: "行业报告",
+                tagColor: "blue",
+                title: "2025全球法律科技年度报告发布",
+                desc: "报告指出，AI驱动的合同管理和电子取证是今年增长最快的领域。全球市场规模预计在2030年达到500亿美元。",
+                source: "LegalTech News | 2025年11月18日",
+                link: "https://www.legaltech-talk.com/insights/news/",
+                img: "photo1.png" // 优化：已替换为你的本地图片
+            },
+            {
+                tag: "政策解读",
+                tagColor: "green",
+                title: "加州总检察长就《适龄设计规范法案》提起上诉",
+                desc: "该法案严格限制数字服务对未成年人数据的收集和使用。加州总检察长办公室正在对阻止该法案生效的初步禁令提起上诉。",
+                source: "Reuters / CA OAG | 2025年11月17日",
+                link: "https://oag.ca.gov/news/press-releases/attorney-general-bonta-appeals-age-appropriate-design-code-act-decision",
+                img: "photo2.png" // 优化：已替换为你的本地图片
+            }
+        ];
+        
+        let chartInstance = null; // 声明一个变量来持有图表实例
+        const RETRY_DELAY = [1000, 2000, 4000]; // 指数退避的延迟
+
+        // --- 页面加载时执行的函数 ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+
+            // 导航点击事件
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // 阻止链接默认跳转
+                    
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // 切换页面显示
+                    pageSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+
+                    // --- 新增：如果切换到“数据洞察”页面，则渲染图表 ---
+                    if (targetId === 'page-data') {
+                        // 延迟一小段时间（10ms）确保 canvas 已经可见
+                        setTimeout(renderDataInsightChart, 10);
+                    }
+
+                    // 更新导航栏 'active' 状态
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // 点击导航后滚动到页面顶部
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            // (可选) 适配移动端菜单
+            // 移动端菜单按钮的逻辑可以添加在这里
+            // ...
+
+            // --- 新增：动态加载数据 ---
+            loadLatestDynamics(); // <- 优化：改回使用 100% 可靠的模拟加载
+            // loadRealtimeDynamics(); // <- 停用：在本地文件环境中会失败
+            loadLegalNews();
+        });
+
+        // --- 优化：加载“最新动态”的函数 (改回可靠的模拟加载) ---
+        function loadLatestDynamics() {
+            const container = document.getElementById('latest-dynamics-container');
+            if (!container) return;
+
+            // 模拟延迟加载 (500ms)，以实现“刷新”效果
+            setTimeout(() => {
+                container.innerHTML = ''; // 清除“加载中...”
+                
+                if (latestDynamicsData.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500">暂无最新动态。</p>';
+                    return;
+                }
+
+                latestDynamicsData.forEach((item, index) => {
+                    const isLast = index === latestDynamicsData.length - 1;
+                    const borderClass = isLast ? '' : 'border-b pb-3';
+                    
+                    const itemHtml = `
+                        <div class="${borderClass}">
+                            <h3 class="font-semibold text-gray-800">${item.title}</h3>
+                            <p class="text-sm text-gray-500 mb-2">来源: ${item.source} | 日期: ${item.date}</p>
+                            <a href="${item.link}" class="text-sm text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">阅读更多 &rarr;</a>
+                        </div>
+                    `;
+                    container.innerHTML += itemHtml;
+                });
+            }, 500); // 500ms 延迟
+        }
+
+        // --- (注释掉或删除) 停用不稳定的实时API函数 ---
+        /*
+        async function loadRealtimeDynamics(retryCount = 0) {
+            const container = document.getElementById('latest-dynamics-container');
+            const loadingText = document.getElementById('dynamics-loading-text');
+            if (!container || !loadingText) return;
+
+            const apiKey = ""; // 留空，Canvas 环境会自动注入
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            // 1. 定义我们希望的返回格式 (JSON Schema)
+            const responseSchema = {
+                type: "ARRAY",
+                items: {
+                    type: "OBJECT",
+                    properties: {
+                        "headline": { "type": "STRING" },
+                        "source": { "type": "STRING" },
+                        "summary": { "type": "STRING" },
+                        "url": { "type": "STRING" }
+                    },
+                    required: ["headline", "source", "summary", "url"]
+                }
+            };
+
+            // 2. 定义我们的查询
+            const userQuery = "查找3条关于'法律科技', 'AI与法律', 或 '数据隐私法' 的最新新闻头条。请提供头条、来源网站、一句话摘要和URL。";
+
+            // 3. 构建 API 请求体
+            const payload = {
+                contents: [{ 
+                    parts: [{ text: userQuery }] 
+                }],
+                tools: [
+                    { "google_search": {} } // 关键：启用 Google 搜索
+                ],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: responseSchema
+                }
+            };
+
+            try {
+                // 4. 发出 API 请求
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    // 如果服务器返回错误 (e.g., 500)
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                // 5. 解析 API 返回的 JSON 字符串
+                const candidate = result.candidates?.[0];
+                if (!candidate || !candidate.content?.parts?.[0]?.text) {
+                    throw new Error("无效的 API 响应结构");
+                }
+
+                const dataArray = JSON.parse(candidate.content.parts[0].text);
+                
+                // 6. 渲染数据
+                container.innerHTML = ''; // 清空“加载中...”
+                if (!dataArray || dataArray.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500">暂无实时动态。</p>';
+                    return;
+                }
+
+                dataArray.forEach((item, index) => {
+                    const isLast = index === dataArray.length - 1;
+                    const borderClass = isLast ? '' : 'border-b pb-3';
+                    
+                    const itemHtml = `
+                        <div class="${borderClass}">
+                            <h3 class="font-semibold text-gray-800">${item.headline}</h3>
+                            <p class="text-sm text-gray-500 mb-2">来源: ${item.source}</p>
+                            <p class="text-sm text-gray-600 mb-2">${item.summary}</p>
+                            <a href="${item.url}" class="text-sm text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">阅读更多 &rarr;</a>
+                        </div>
+                    `;
+                    container.innerHTML += itemHtml;
+                });
+
+            } catch (error) {
+                console.error("加载实时动态失败:", error);
+                
+                // --- 实现指数退避重试 ---
+                if (retryCount < RETRY_DELAY.length) {
+                    loadingText.innerText = `加载失败，正在重试 (${retryCount + 1}/${RETRY_DELAY.length})...`;
+                    setTimeout(() => loadRealtimeDynamics(retryCount + 1), RETRY_DELAY[retryCount]);
+                } else {
+                    container.innerHTML = `<p class="text-red-500">无法加载实时动态。请稍后刷新重试。</p>`;
+                }
+            }
+        }
+        */
+
+        // --- 保留：加载“法律资讯”的函数 (模拟数据) ---
+        function loadLegalNews() {
+            const container = document.getElementById('legal-news-container');
+            if (!container) return;
+
+            // 模拟延迟加载
+            setTimeout(() => {
+                container.innerHTML = ''; // 清除“加载中...”
+                
+                if (legalNewsData.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500">暂无法律资讯。</p>';
+                    return;
+                }
+
+                const tagClasses = {
+                    blue: "text-blue-600 bg-blue-100",
+                    green: "text-green-600 bg-green-100",
+                    default: "text-gray-600 bg-gray-100"
+                };
+
+                legalNewsData.forEach(item => {
+                    const tagClass = tagClasses[item.tagColor] || tagClasses.default;
+                    const itemHtml = `
+                        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row items-start">
+                            <img src="${item.img}" alt="${item.title}" class="w-full md:w-48 h-auto rounded-md object-cover mr-6 mb-4 md:mb-0">
+                            <div class="flex-1">
+                                <span class="text-sm font-medium ${tagClass} px-3 py-1 rounded-full">${item.tag}</span>
+                                <h2 class="text-2xl font-semibold my-2">${item.title}</h2>
+                                <p class="text-gray-700 mb-3">${item.desc}</p>
+                                <p class="text-sm text-gray-500 mb-4">来源：${item.source}</p>
+                                <a href="${item.link}" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读报告全文 &rarr;</a>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += itemHtml;
+                });
+            }, 500); // 延迟500毫秒
+        }
+
+        // --- 新增：加载“数据洞察”图表的函数 ---
+        function renderDataInsightChart() {
+            const ctx = document.getElementById('dataInsightChart');
+            if (!ctx) return; // 如果找不到 canvas，则退出
+
+            // 检查是否已有图表实例，如果有，先销毁
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            // 模拟的真实有效数据
+            const labels = ['2020', '2021', '2022', '2023', '2024', '2025 (预计)'];
+            const dataBreaches = [3930, 4150, 4220, 4500, 4410, 4600]; // 模拟泄露事件（百万起）
+            const regulatoryFines = [1.2, 2.5, 3.1, 4.5, 3.8, 5.0]; // 模拟罚款总额（十亿美元）
+
+            // 创建图表
+            chartInstance = new Chart(ctx.getContext('2d'), {
+                type: 'bar', // 混合图表
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '监管罚款总额 (十亿美元)',
+                            data: regulatoryFines,
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)', // red-500 with opacity
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            yAxisID: 'yFines', // 关联到Y轴 'yFines'
+                            order: 1 // 确保柱状图在后
+                        },
+                        {
+                            label: '数据泄露事件 (百万起)',
+                            data: dataBreaches,
+                            type: 'line', // 覆盖默认类型
+                            fill: false,
+                            borderColor: 'rgba(59, 130, 246, 1)', // blue-500
+                            backgroundColor: 'rgba(59, 130, 246, 1)',
+                            tension: 0.1,
+                            yAxisID: 'yBreaches', // 关联到Y轴 'yBreaches'
+                            order: 0 // 确保折线图在前
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '年份'
+                            }
+                        },
+                        yFines: { // 第一个Y轴（罚款）
+                            type: 'linear',
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: '罚款总额 (十亿美元)'
+                            },
+                            grid: {
+                                drawOnChartArea: true, 
+                            },
+                            beginAtZero: true
+                        },
+                        yBreaches: { // 第二个Y轴（泄露）
+                            type: 'linear',
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '泄露事件 (百万起)'
+                            },
+                            beginAtZero: false, // 泄露事件不需要从0开始
+                            grid: {
+                                drawOnChartArea: false // 不在图表区域绘制网格线
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
