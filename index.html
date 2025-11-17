@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>法与数据 - 法律信息素养专题站</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Chart.js (新增) -->
+    <!-- 引入 Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- 引入 Inter 字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,13 +18,7 @@
             font-family: 'Inter', 'sans-serif';
             background-color: #f8fafc; /* Tailwind gray-50 */
         }
-        /* 导航栏 "active" 状态 */
-        .nav-link.active {
-            color: #2563eb; /* blue-600 */
-            border-bottom-width: 2px;
-            border-color: #2563eb; /* blue-600 */
-        }
-        /* 页面切换时的平滑过渡（可选） */
+        /* 页面切换时的平滑过渡 */
         .page-section {
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -42,27 +38,42 @@
                 <div class="flex-shrink-0">
                     <a href="#" class="text-2xl font-bold text-blue-600">法学信息站</a>
                 </div>
-                <!-- 导航链接 -->
-                <div class="hidden md:block">
+                <!-- 桌面端导航链接 -->
+                <div id="desktop-nav" class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#" class="nav-link active px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-home">首页</a>
+                        <!-- 优化：直接使用 Tailwind 类进行 'active' 状态切换 -->
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-blue-600 border-b-2 border-blue-600" data-target="page-home">首页</a>
                         <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-research">最新成果</a>
                         <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-news">法律资讯</a>
                         <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-data">数据洞察</a>
                     </div>
                 </div>
-                <!-- 移动端菜单按钮 (可选，此处简化未实现功能) -->
+                <!-- 移动端菜单按钮 -->
                 <div class="md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">打开主菜单</span>
                         <!-- 汉堡菜单图标 -->
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
+                        <!-- 关闭图标 (JS切换) -->
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     </button>
                 </div>
             </div>
         </nav>
+
+        <!-- 移动端菜单 (优化：添加此部分) -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-blue-50" data-target="page-home">首页</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-research">最新成果</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-news">法律资讯</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-data">数据洞察</a>
+            </div>
+        </div>
     </header>
 
     <!-- 主体内容 -->
@@ -81,7 +92,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- 专题概况 (可视化数据) -->
                 <div class="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
-                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">专题概况：法律信息检索趋势 (模拟数据)</h2>
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">专题概况：法律信息检索趋势</h2>
                     <p class="text-gray-600 mb-6">以下图表展示了近几个月法律信息检索中关键主题的热度变化。</p>
                     <!-- 模拟条形图 -->
                     <div class="space-y-4">
@@ -218,9 +229,7 @@
             <div class="bg-white shadow-lg rounded-lg p-6">
                 <h2 class="text-2xl font-bold mb-4">模拟图表：全球数据泄露事件与监管罚款</h2>
                 <p class="text-gray-600 mb-6">下图模拟了过去五年中，全球报告的数据泄露事件数量（蓝线）与监管机构（如GDPR）开出的罚款总额（红柱）之间的关系。</p>
-                <!-- 模拟的复杂图表 (使用SVG或Div) -->
                 <div class="relative w-full h-96 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <!-- 原来的占位符被替换为 canvas -->
                     <canvas id="dataInsightChart"></canvas>
                 </div>
                 <div class="mt-6">
@@ -243,7 +252,6 @@
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-white">制作人名单</h3>
                 <p class="text-gray-400">
-                    <!-- TODO: 在此处替换为你们小组的成员名单 -->
                     王佳怡 | 左雪 | 周婧梅 | 杨映丽 | 黄家淳
                 </p>
             </div>
@@ -258,7 +266,6 @@
     <!-- JavaScript 脚本 -->
     <script>
         // --- 模拟的动态数据 ---
-        // TODO: 你可以替换这里的数据
         const latestDynamicsData = [
             {
                 title: "《网络数据安全管理条例（征求意见稿）》公开征求意见",
@@ -302,57 +309,88 @@
         ];
         
         let chartInstance = null; // 声明一个变量来持有图表实例
-        const RETRY_DELAY = [1000, 2000, 4000]; // 指数退避的延迟
 
         // --- 页面加载时执行的函数 ---
         document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.nav-link');
+            const allNavLinks = document.querySelectorAll('.nav-link');
             const pageSections = document.querySelectorAll('.page-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const desktopNav = document.getElementById('desktop-nav');
+            
+            // 优化：获取按钮上的两个图标
+            const openIcon = mobileMenuButton.querySelector('svg:first-child');
+            const closeIcon = mobileMenuButton.querySelector('svg:last-child');
 
-            // 导航点击事件
-            navLinks.forEach(link => {
+            // 导航点击事件 (统一处理)
+            allNavLinks.forEach(link => {
                 link.addEventListener('click', function (event) {
                     event.preventDefault(); // 阻止链接默认跳转
                     
                     const targetId = this.getAttribute('data-target');
                     
-                    // 切换页面显示
+                    // 1. 切换页面显示
                     pageSections.forEach(section => {
-                        if (section.id === targetId) {
-                            section.classList.remove('hidden');
-                        } else {
-                            section.classList.add('hidden');
-                        }
+                        section.id === targetId ? section.classList.remove('hidden') : section.classList.add('hidden');
                     });
 
-                    // --- 新增：如果切换到“数据洞察”页面，则渲染图表 ---
+                    // 2. 渲染图表
                     if (targetId === 'page-data') {
-                        // 延迟一小段时间（10ms）确保 canvas 已经可见
                         setTimeout(renderDataInsightChart, 10);
                     }
 
-                    // 更新导航栏 'active' 状态
-                    navLinks.forEach(navLink => {
-                        navLink.classList.remove('active');
+                    // 3. 更新所有导航栏 'active' 状态
+                    allNavLinks.forEach(navLink => {
+                        const linkTarget = navLink.getAttribute('data-target');
+                        const isDesktop = navLink.closest('#desktop-nav');
+                        
+                        if (linkTarget === targetId) {
+                            // 添加 active 样式
+                            if (isDesktop) {
+                                navLink.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                                navLink.classList.remove('text-gray-700');
+                            } else {
+                                navLink.classList.add('text-blue-600', 'bg-blue-50');
+                                navLink.classList.remove('text-gray-700');
+                            }
+                        } else {
+                            // 移除 active 样式
+                            if (isDesktop) {
+                                navLink.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+                                navLink.classList.add('text-gray-700');
+                            } else {
+                                navLink.classList.remove('text-blue-600', 'bg-blue-50');
+                                navLink.classList.add('text-gray-700');
+                            }
+                        }
                     });
-                    this.classList.add('active');
+                    
+                    // 4. (关键) 关闭移动端菜单
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden'); // 显示汉堡图标
+                    closeIcon.classList.add('hidden'); // 隐藏关闭图标
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
 
-                    // 点击导航后滚动到页面顶部
+                    // 5. 点击导航后滚动到页面顶部
                     window.scrollTo(0, 0);
                 });
             });
 
-            // (可选) 适配移动端菜单
-            // 移动端菜单按钮的逻辑可以添加在这里
-            // ...
+            // 移动端菜单按钮点击事件
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                // 切换图标
+                openIcon.classList.toggle('hidden', !isExpanded);
+                closeIcon.classList.toggle('hidden', isExpanded);
+            });
 
-            // --- 新增：动态加载数据 ---
-            loadLatestDynamics(); // <- 优化：改回使用 100% 可靠的模拟加载
-            // loadRealtimeDynamics(); // <- 停用：在本地文件环境中会失败
+            // --- 动态加载数据 ---
+            loadLatestDynamics();
             loadLegalNews();
         });
 
-        // --- 优化：加载“最新动态”的函数 (改回可靠的模拟加载) ---
+        // --- 加载“最新动态”的函数 (可靠的模拟加载) ---
         function loadLatestDynamics() {
             const container = document.getElementById('latest-dynamics-container');
             if (!container) return;
@@ -382,108 +420,7 @@
             }, 500); // 500ms 延迟
         }
 
-        // --- (注释掉或删除) 停用不稳定的实时API函数 ---
-        /*
-        async function loadRealtimeDynamics(retryCount = 0) {
-            const container = document.getElementById('latest-dynamics-container');
-            const loadingText = document.getElementById('dynamics-loading-text');
-            if (!container || !loadingText) return;
-
-            const apiKey = ""; // 留空，Canvas 环境会自动注入
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-            // 1. 定义我们希望的返回格式 (JSON Schema)
-            const responseSchema = {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        "headline": { "type": "STRING" },
-                        "source": { "type": "STRING" },
-                        "summary": { "type": "STRING" },
-                        "url": { "type": "STRING" }
-                    },
-                    required: ["headline", "source", "summary", "url"]
-                }
-            };
-
-            // 2. 定义我们的查询
-            const userQuery = "查找3条关于'法律科技', 'AI与法律', 或 '数据隐私法' 的最新新闻头条。请提供头条、来源网站、一句话摘要和URL。";
-
-            // 3. 构建 API 请求体
-            const payload = {
-                contents: [{ 
-                    parts: [{ text: userQuery }] 
-                }],
-                tools: [
-                    { "google_search": {} } // 关键：启用 Google 搜索
-                ],
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: responseSchema
-                }
-            };
-
-            try {
-                // 4. 发出 API 请求
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    // 如果服务器返回错误 (e.g., 500)
-                    throw new Error(`API Error: ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                // 5. 解析 API 返回的 JSON 字符串
-                const candidate = result.candidates?.[0];
-                if (!candidate || !candidate.content?.parts?.[0]?.text) {
-                    throw new Error("无效的 API 响应结构");
-                }
-
-                const dataArray = JSON.parse(candidate.content.parts[0].text);
-                
-                // 6. 渲染数据
-                container.innerHTML = ''; // 清空“加载中...”
-                if (!dataArray || dataArray.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500">暂无实时动态。</p>';
-                    return;
-                }
-
-                dataArray.forEach((item, index) => {
-                    const isLast = index === dataArray.length - 1;
-                    const borderClass = isLast ? '' : 'border-b pb-3';
-                    
-                    const itemHtml = `
-                        <div class="${borderClass}">
-                            <h3 class="font-semibold text-gray-800">${item.headline}</h3>
-                            <p class="text-sm text-gray-500 mb-2">来源: ${item.source}</p>
-                            <p class="text-sm text-gray-600 mb-2">${item.summary}</p>
-                            <a href="${item.url}" class="text-sm text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">阅读更多 &rarr;</a>
-                        </div>
-                    `;
-                    container.innerHTML += itemHtml;
-                });
-
-            } catch (error) {
-                console.error("加载实时动态失败:", error);
-                
-                // --- 实现指数退避重试 ---
-                if (retryCount < RETRY_DELAY.length) {
-                    loadingText.innerText = `加载失败，正在重试 (${retryCount + 1}/${RETRY_DELAY.length})...`;
-                    setTimeout(() => loadRealtimeDynamics(retryCount + 1), RETRY_DELAY[retryCount]);
-                } else {
-                    container.innerHTML = `<p class="text-red-500">无法加载实时动态。请稍后刷新重试。</p>`;
-                }
-            }
-        }
-        */
-
-        // --- 保留：加载“法律资讯”的函数 (模拟数据) ---
+        // --- 加载“法律资讯”的函数 (模拟数据) ---
         function loadLegalNews() {
             const container = document.getElementById('legal-news-container');
             if (!container) return;
@@ -505,6 +442,7 @@
 
                 legalNewsData.forEach(item => {
                     const tagClass = tagClasses[item.tagColor] || tagClasses.default;
+                    // 优化：移动端堆叠 (flex-col)，桌面端并排 (md:flex-row)
                     const itemHtml = `
                         <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row items-start">
                             <img src="${item.img}" alt="${item.title}" class="w-full md:w-48 h-auto rounded-md object-cover mr-6 mb-4 md:mb-0">
@@ -522,7 +460,7 @@
             }, 500); // 延迟500毫秒
         }
 
-        // --- 新增：加载“数据洞察”图表的函数 ---
+        // --- 加载“数据洞察”图表的函数 ---
         function renderDataInsightChart() {
             const ctx = document.getElementById('dataInsightChart');
             if (!ctx) return; // 如果找不到 canvas，则退出
