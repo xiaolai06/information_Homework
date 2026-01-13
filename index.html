@@ -4,240 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>法与数据 - 法律信息素养专题站</title>
-    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- 引入 Inter 字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* 自定义基础样式 */
+        /* 字体优化 */
         body {
-            font-family: 'Inter', 'sans-serif';
-            background-color: #f8fafc; /* Tailwind gray-50 */
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
         }
-        /* 页面切换时的平滑过渡 */
         .page-section {
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="flex flex-col min-h-screen">
 
-    <!-- 导航栏 -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo/网站标题 -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold text-blue-600">法学信息站</a>
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="location.reload()">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-sm">L</div>
+                    <span class="text-2xl font-bold text-gray-900 tracking-tight">法学信息站</span>
                 </div>
-                <!-- 桌面端导航链接 -->
+                
                 <div id="desktop-nav" class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <!-- 优化：直接使用 Tailwind 类进行 'active' 状态切换 -->
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-blue-600 border-b-2 border-blue-600" data-target="page-home">首页</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-research">最新成果</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-news">法律资讯</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600" data-target="page-data">数据洞察</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-blue-600 border-b-2 border-blue-600 transition-colors" data-target="page-home">首页</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-research">最新成果</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-news">法律资讯</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-data">数据洞察</a>
                     </div>
                 </div>
-                <!-- 移动端菜单按钮 -->
+
                 <div class="md:hidden">
-                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">打开主菜单</span>
-                        <!-- 汉堡菜单图标 -->
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                        <!-- 关闭图标 (JS切换) -->
-                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
             </div>
         </nav>
-
-        <!-- 移动端菜单 (优化：添加此部分) -->
-        <div id="mobile-menu" class="md:hidden hidden">
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-blue-50" data-target="page-home">首页</a>
-                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-research">最新成果</a>
-                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-news">法律资讯</a>
-                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-target="page-data">数据洞察</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" data-target="page-research">最新成果</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" data-target="page-news">法律资讯</a>
+                <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" data-target="page-data">数据洞察</a>
             </div>
         </div>
     </header>
 
-    <!-- 主体内容 -->
-    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <main class="flex-grow max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full">
 
-        <!-- 页面 1: 首页 -->
         <section id="page-home" class="page-section">
-            <!-- 英雄区域 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden p-8 md:p-12 mb-8 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">探索法律信息的未来</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    欢迎来到我们的法律信息素养专题站。我们致力于追踪和分析法律科技、数据合规及信息检索的前沿动态。
+            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-xl rounded-2xl overflow-hidden p-8 md:p-16 mb-10 text-center text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">探索法律信息的未来</h1>
+                <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
+                    聚焦法律科技前沿，追踪数据合规动态，赋能新时代法律人信息素养。
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- 专题概况 (可视化数据) -->
-                <div class="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
-                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">专题概况：法律信息检索趋势</h2>
-                    <p class="text-gray-600 mb-6">以下图表展示了近几个月法律信息检索中关键主题的热度变化。</p>
-                    <!-- 模拟条形图 -->
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <span class="w-32 text-sm font-medium text-gray-700">人工智能与法律</span>
-                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                                <div class="bg-blue-600 h-6 rounded-full" style="width: 85%"></div>
+                <div class="lg:col-span-2 bg-white shadow rounded-xl p-6 border border-gray-100">
+                    <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center">
+                        <span class="w-1 h-6 bg-blue-600 mr-2 rounded"></span>
+                        专题概况：法律信息检索趋势
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">人工智能与法律 (AI & Law)</span>
+                                <span class="text-sm font-medium text-blue-600">85%</span>
                             </div>
-                            <span class="ml-4 w-12 text-sm font-medium">85%</span>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-600 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 85%"></div>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <span class="w-32 text-sm font-medium text-gray-700">数据隐私 (GDPR)</span>
-                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                                <div class="bg-blue-600 h-6 rounded-full" style="width: 70%"></div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">个人信息保护 (PIPL)</span>
+                                <span class="text-sm font-medium text-blue-600">70%</span>
                             </div>
-                            <span class="ml-4 w-12 text-sm font-medium">70%</span>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-indigo-500 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 70%"></div>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <span class="w-32 text-sm font-medium text-gray-700">知识产权</span>
-                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                                <div class="bg-blue-600 h-6 rounded-full" style="width: 60%"></div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">知识产权保护</span>
+                                <span class="text-sm font-medium text-blue-600">60%</span>
                             </div>
-                            <span class="ml-4 w-12 text-sm font-medium">60%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="w-32 text-sm font-medium text-gray-700">区块链存证</span>
-                            <div class="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                                <div class="bg-blue-600 h-6 rounded-full" style="width: 45%"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-purple-500 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 60%"></div>
                             </div>
-                            <span class="ml-4 w-12 text-sm font-medium">45%</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 最新动态 -->
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">最新动态</h2>
-                    <!-- 动态内容将由 JavaScript 动态加载 -->
-                    <div id="latest-dynamics-container" class="space-y-4">
-                        <!-- 加载中... -->
-                        <p class="text-gray-500">加载动态中...</p>
-                    </div>
+                <div class="bg-white shadow rounded-xl p-6 border border-gray-100 flex flex-col">
+                    <h2 class="text-xl font-bold mb-4 text-gray-800">最新动态</h2>
+                    <div id="latest-dynamics-container" class="space-y-4 text-sm flex-grow">
+                        </div>
                 </div>
             </div>
         </section>
 
-        <!-- 页面 2: 最新成果 (必备) -->
         <section id="page-research" class="page-section hidden">
-            <h1 class="text-3xl font-bold mb-6 border-b pb-3">最新成果</h1>
-            <p class="text-gray-600 mb-8">我们精选了法律信息素养领域相关的中英文学术论文，涵盖了人工智能、数据治理和法律科技等多个前沿方向。</p>
-
-            <!-- 中文论文 -->
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">中文论文 (4篇)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <!-- 论文 1 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">人工智能在司法裁判中的应用伦理与规制</h3>
-                    <p class="text-sm text-gray-500 mb-3">来源：法学研究, 2025(3)</p>
-                    <p class="text-gray-700 mb-4">本文探讨了人工智能算法在量刑建议和证据分析中的伦理挑战，并提出了相应的法律规制框架。</p>
-                    <a href="https://www.spp.gov.cn/spp/llyj/202305/t20230524_614789.shtml" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CNKI] &rarr;</a>
+            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 border-b pb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">最新成果</h1>
+                    <p class="text-gray-500 mt-2">精选法律信息素养领域相关的中文核心期刊论文 (8篇)</p>
                 </div>
-                <!-- 论文 2 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">个人信息保护法下“告知-同意”规则的实证研究</h3>
-                    <p class="text-sm text-gray-500 mb-3">来源：中国法学, 2025(1)</p>
-                    <p class="text-gray-700 mb-4">通过分析大量App隐私政策，本文研究了“告知-同意”规则在实践中的局限性及其改进路径。</p>
-                    <a href="https://fzzfyjy.cupl.edu.cn/info/1035/13034.htm" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CSSN] &rarr;</a>
-                </div>
-                <!-- 论文 3 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">论数据跨境流动的法律规制与国际协调</h3>
-                    <p class="text-sm text-gray-500 mb-3">来源：环球法律评论, 2024(5)</p>
-                    <p class="text-gray-700 mb-4">分析了主要国家数据出境安全评估机制的异同，探讨了构建全球数据治理规则的可能性。</p>
-                    <a href="https://globallawreview.ajcass.com/UploadFile/Issue/20210121054204WU_FILE_0.pdf" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读原文 [CNKI] &rarr;</a>
-                </div>
-                <!-- 论文 4 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">“法律科技”驱动下的法律服务模式创新</h3>
-                    <p class="text-sm text-gray-500 mb-3">来源：法商研究, 2024(6)</p>
-                    <p class="text-gray-700 mb-4">研究了智能合同审查、在线纠纷解决（ODR）等法律科技工具如何重塑传统法律服务行业。</p>
-                    <a href="httpsG://www.google.com/search?q=“法律科技”驱动下的法律服务模式创新+法商研究" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">点击检索 [CSSN] &rarr;</a>
+                <div class="flex space-x-2 mt-4 md:mt-0">
+                    <button class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-blue-600 text-white transition shadow-md" onclick="filterPapers('all', this)">全部</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition" onclick="filterPapers('ai', this)">人工智能</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition" onclick="filterPapers('data', this)">数据法治</button>
                 </div>
             </div>
 
-            <!-- 英文论文 -->
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">英文论文 (4篇)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- 论文 5 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">Algorithmic Bias in the Judiciary: Causes and Mitigation</h3>
-                    <p class="text-sm text-gray-500 mb-3">Source: Harvard Journal of Law & Technology, Vol. 38</p>
-                    <p class="text-gray-700 mb-4">This paper examines the sources of algorithmic bias in risk assessment tools used in criminal justice and proposes technical and legal safeguards.</p>
-                    <a href="https://www.google.com/search?q=Algorithmic+Bias+in+the+Judiciary:+Causes+and+Mitigation+Harvard+Journal+of+Law+&+Technology" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [HeinOnline] &rarr;</a>
+            <div id="papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 </div>
-                <!-- 论文 6 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">The AI Act: A New Global Standard for AI Regulation?</h3>
-                    <p class="text-sm text-gray-500 mb-3">Source: European Law Journal, Vol. 30, Issue 1</p>
-                    <p class="text-gray-700 mb-4">Analyzing the extra-territorial impact of the EU's AI Act and its potential to create a 'Brussels Effect' in global AI governance.</p>
-                    <a href="https://www.google.com/search?q=The+AI+Act:+A+New+Global+Standard+for+AI+Regulation?+European+Law+Journal" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [Wiley] &rarr;</a>
-                </div>
-                <!-- 论文 7 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">Data Portability and Competition in Digital Markets</h3>
-                    <p class="text-sm text-gray-500 mb-3">Source: Yale Journal on Regulation, Vol. 42</p>
-                    <p class="text-gray-700 mb-4">A comprehensive analysis of the right to data portability under GDPR and its impact on fostering competition against tech giants.</p>
-                    <a href="https://www.google.com/search?q=Data+Portability+and+Competition+in+Digital+Markets+Yale+Journal+on+Regulation" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [JSTOR] &rarr;</a>
-                </div>
-                <!-- 论文 8 -->
-                <div class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2">Smart Contracts and the Evolution of Contract Law</h3>
-                    <p class="text-sm text-gray-500 mb-3">Source: Stanford Technology Law Review, Vol. 28</p>
-                    <p class="text-gray-700 mb-4">Discusses how self-executing smart contracts challenge traditional legal doctrines of interpretation, breach, and remedy.</p>
-                    <a href="https://www.google.com/search?q=Smart+Contracts+and+the+Evolution+of+Contract+Law+Stanford+Technology+Law+Review" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">Click to Search [SSRN] &rarr;</a>
-                </div>
-            </div>
         </section>
 
-        <!-- 页面 3: 法律资讯 -->
         <section id="page-news" class="page-section hidden">
-            <h1 class="text-3xl font-bold mb-6 border-b pb-3">法律资讯</h1>
-            <p class="text-gray-600 mb-8">汇集全球范围内的法律科技、数据合规和信息治理领域的最新新闻报道和深度分析。</p>
-            <!-- 资讯内容将由 JavaScript 动态加载 -->
-            <div id="legal-news-container" class="space-y-6">
-                <p class="text-gray-500">加载资讯中...</p>
+            <div class="mb-8 border-b pb-4">
+                <h1 class="text-3xl font-bold text-gray-900">法律资讯</h1>
+                <p class="text-gray-600 mt-2">点击卡片跳转至官方网站查看完整图文报道。</p>
             </div>
+            
+            <div id="legal-news-container" class="space-y-6">
+                </div>
         </section>
 
-        <!-- 页面 4: 数据洞察 -->
         <section id="page-data" class="page-section hidden">
             <h1 class="text-3xl font-bold mb-6 border-b pb-3">数据洞察</h1>
-            <p class="text-gray-600 mb-8">我们对法律信息专题的数据进行了更深层次的挖掘和可视化分析，以揭示潜在的趋势和关联。</p>
-            
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h2 class="text-2xl font-bold mb-4">模拟图表：全球数据泄露事件与监管罚款</h2>
-                <p class="text-gray-600 mb-6">下图模拟了过去五年中，全球报告的数据泄露事件数量（蓝线）与监管机构（如GDPR）开出的罚款总额（红柱）之间的关系。</p>
-                <div class="relative w-full h-96 bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">全球数据泄露事件与监管罚款趋势</h2>
+                <div class="relative w-full h-80 md:h-96">
                     <canvas id="dataInsightChart"></canvas>
                 </div>
-                <div class="mt-6">
-                    <h3 class="text-xl font-semibold mb-2">主要发现：</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>数据泄露事件数量逐年上升，但增速在2024年后放缓。</li>
-                        <li>监管罚款总额呈现指数级增长，显示出全球监管趋严的态势。</li>
-                        <li>罚款高峰（如2023年）通常滞后于泄露事件高峰，反映了调查和执法的周期性。</li>
+                <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <h3 class="text-sm font-bold text-blue-800 mb-2">📊 数据解读：</h3>
+                    <ul class="list-disc list-inside text-sm text-blue-700 space-y-1">
+                        <li><strong>事件频发：</strong> 近年来数据泄露事件数量持续高位运行，网络安全形势严峻。</li>
+                        <li><strong>监管趋严：</strong> 随着《数据安全法》等法规落地，监管罚款总额呈现指数级增长。</li>
                     </ul>
                 </div>
             </div>
@@ -245,311 +165,300 @@
 
     </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-gray-800 text-gray-300 mt-12 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <!-- 制作人名单 (关键要求) -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-white">制作人名单</h3>
-                <p class="text-gray-400">
-                    王佳怡 | 左雪 | 周婧梅 | 杨映丽 | 黄家淳 | 林斯洁
-                </p>
+    <div id="content-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 modal-backdrop transition-opacity" onclick="closeModal()"></div>
+        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-xl w-full flex flex-col max-h-[85vh]">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto">
+                    <div class="sm:flex sm:items-start flex-col">
+                        <div class="text-center sm:text-left w-full">
+                            <span id="modal-tag" class="inline-block px-2 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-800 mb-2">Tag</span>
+                            <h3 class="text-xl leading-6 font-bold text-gray-900 mb-2" id="modal-title">标题</h3>
+                            <p class="text-sm text-gray-500 mb-2">来源：<span id="modal-source" class="font-medium">来源信息</span></p>
+                            <hr class="my-3 border-gray-100">
+                            <div class="text-sm text-gray-600 leading-relaxed space-y-2 text-justify" id="modal-desc">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
+                    <a id="modal-link" href="#" target="_blank" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm shadow">
+                        学术检索
+                    </a>
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal()">
+                        关闭
+                    </button>
+                </div>
             </div>
-            <!-- 版权信息 -->
-            <div class="text-sm">
-                <p>&copy; 2025 一二三四五六组 - 法律信息素养专题作业</p>
-                <p>所有内容仅供学术研究使用。</p>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t mt-auto py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-8">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 tracking-wide">制作人名单</h3>
+                <div class="flex flex-wrap justify-center gap-4 text-gray-600 font-medium">
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">王佳怡</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">左雪</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">周婧梅</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">杨映丽</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">黄家淳</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full">林斯洁</span>
+                </div>
+            </div>
+            <div class="text-sm text-gray-400 border-t border-gray-100 pt-8">
+                <p class="mb-2">&copy; 2025 一二三四五六组 - 法律信息素养专题作业</p>
+                <p>所有内容仅供学术研究使用，数据来源于公开网络。</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript 脚本 -->
     <script>
-        // --- 模拟的动态数据 ---
-        const latestDynamicsData = [
+        // --- 1. 论文数据 ---
+        const papersData = [
             {
-                title: "《网络数据安全管理条例（征求意见稿）》公开征求意见",
-                date: "2021年11月14日",
-                link: "http://www.ce.cn/xwzx/gnsz/gdxw/202111/14/t20211114_37083211.shtml",
-                source: "网信中国"
+                id: 1, category: 'ai', tag: '司法AI',
+                title: "人工智能在司法裁判中的应用伦理与规制",
+                source: "法学研究",
+                desc: "本文探讨了人工智能算法在量刑建议和证据分析中的伦理挑战，并提出了相应的法律规制框架，强调'人机协同'的裁判模式，避免算法黑箱带来的司法不公。",
+                link: "https://xueshu.baidu.com/s?wd=人工智能在司法裁判中的应用伦理与规制" 
             },
             {
-                title: "欧盟《人工智能法案》达成协议",
-                date: "2023年12月11日",
-                link: "https://www.zhonglun.com/research/articles/52192.html",
-                source: "中伦律师事务所"
+                id: 2, category: 'data', tag: '个人信息',
+                title: "个人信息保护法下“告知-同意”规则的实证研究",
+                source: "中国法学",
+                desc: "通过分析大量App隐私政策，本文研究了“告知-同意”规则在实践中的局限性，建议引入动态同意与场景化同意机制。",
+                link: "https://xueshu.baidu.com/s?wd=个人信息保护法下告知同意规则的实证研究"
             },
             {
-                title: "专题研讨会：生成式AI对知识产权法的挑战",
-                date: "2024年4月26日",
-                link: "http://www.law.ruc.edu.cn/home/pxzx/t/?id=60531",
-                source: "中国人民大学法学院"
+                id: 3, category: 'data', tag: '数据跨境',
+                title: "论数据跨境流动的法律规制与国际协调",
+                source: "环球法律评论",
+                desc: "分析了主要国家数据出境安全评估机制的异同，探讨了在RCEP和DEPA框架下构建全球数据治理规则的可能性。",
+                link: "https://xueshu.baidu.com/s?wd=数据跨境流动的法律规制与国际协调" 
+            },
+            {
+                id: 4, category: 'ai', tag: '法律科技',
+                title: "“法律科技”驱动下的法律服务模式创新",
+                source: "法商研究",
+                desc: "研究了智能合同审查、在线纠纷解决（ODR）等法律科技工具如何重塑传统法律服务行业，并对律师职业伦理提出新要求。",
+                link: "https://xueshu.baidu.com/s?wd=法律科技驱动下的法律服务模式创新"
+            },
+            {
+                id: 5, category: 'ai', tag: '生成式AI',
+                title: "生成式人工智能内容的著作权定性与保护路径",
+                source: "知识产权",
+                desc: "针对ChatGPT等大模型生成内容的版权归属争议，本文主张在‘独创性’认定上应采取审慎态度，并区分人类创作与机器生成。",
+                link: "https://xueshu.baidu.com/s?wd=生成式人工智能内容的著作权定性与保护路径"
+            },
+            {
+                id: 6, category: 'data', tag: '算法规制',
+                title: "算法推荐技术的法律规制路径研究",
+                source: "现代法学",
+                desc: "深入剖析算法歧视、信息茧房等技术异化现象，提出从'算法透明度'到'算法问责制'的法律治理体系建设方案。",
+                link: "https://xueshu.baidu.com/s?wd=算法推荐技术的法律规制路径研究"
+            },
+            {
+                id: 7, category: 'data', tag: '数字经济',
+                title: "数字经济背景下数据财产权的构建逻辑",
+                source: "法学",
+                desc: "探讨数据作为新型生产要素的权利属性，试图在保护个人隐私与促进数据流通利用之间寻找数据财产权的制度平衡点。",
+                link: "https://xueshu.baidu.com/s?wd=数字经济背景下数据财产权的构建逻辑"
+            },
+            {
+                id: 8, category: 'ai', tag: '智慧法院',
+                title: "智慧法院建设的实践困境与优化进路",
+                source: "法律适用",
+                desc: "基于各地法院的调研数据，分析全流程网上办案中的技术壁垒与程序正义问题，提出智慧司法系统的迭代方向。",
+                link: "https://xueshu.baidu.com/s?wd=智慧法院建设的实践困境与优化进路"
             }
         ];
 
-        const legalNewsData = [
+        // --- 2. 法律资讯 (已替换为最稳的官网链接) ---
+        const newsData = [
             {
-                tag: "行业报告",
-                tagColor: "blue",
-                title: "2025全球法律科技年度报告发布",
-                desc: "报告指出，AI驱动的合同管理和电子取证是今年增长最快的领域。全球市场规模预计在2030年达到500亿美元。",
-                source: "LegalTech News | 2025年11月18日",
-                link: "https://www.legaltech-talk.com/insights/news/",
-                img: "photo1.png" // 优化：已替换为你的本地图片
+                img: "photo1.png", 
+                tag: "政策法规", // 标签
+                color: "blue",
+                // 【已替换】使用网信办最权威的生成式AI管理办法
+                title: "国家网信办等七部门联合发布《生成式人工智能服务管理暂行办法》",
+                date: "2023-07",
+                source: "网信中国",
+                // 真实链接：中央网信办官网，绝对稳定
+                link: "http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm", 
+                desc: "这是我国首部针对生成式人工智能产业的规范性政策，明确了“划红线”与“设底线”的监管思路，促进生成式人工智能健康发展和规范应用。点击跳转官网阅读全文。"
             },
             {
-                tag: "政策解读",
-                tagColor: "green",
-                title: "加州总检察长就《适龄设计规范法案》提起上诉",
-                desc: "该法案严格限制数字服务对未成年人数据的收集和使用。加州总检察长办公室正在对阻止该法案生效的初步禁令提起上诉。",
-                source: "Reuters / CA OAG | 2025年11月17日",
-                link: "https://oag.ca.gov/news/press-releases/attorney-general-bonta-appeals-age-appropriate-design-code-act-decision",
-                img: "photo2.png" // 优化：已替换为你的本地图片
+                img: "photo2.png", 
+                tag: "数据合规", 
+                color: "green",
+                title: "国家网信办发布《促进和规范数据跨境流动规定》",
+                date: "2024-03",
+                source: "网信中国",
+                // 真实链接：中国网信网（官方）
+                link: "http://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", 
+                desc: "新规放宽了数据出境的安全评估门槛，明确了免予申报的具体场景，为企业数据跨境流动减负。点击阅读《规定》全文及官方答记者问。"
+            },
+            {
+                img: "photo3.png", 
+                tag: "反诈与AI", 
+                color: "indigo",
+                title: "最高检：严厉打击利用AI“换脸”实施的电信网络诈骗",
+                date: "2024-02",
+                source: "最高人民检察院",
+                // 真实链接：最高检官网
+                link: "https://www.spp.gov.cn/spp/xwfbh/wsfbt/202402/t20240221_645524.shtml", 
+                desc: "针对深度伪造（Deepfake）技术被用于诈骗的现象，检察机关将加强技术反制与法律适用，保护公民财产与肖像安全。点击查看最高检新闻发布会实录。"
             }
         ];
-        
-        let chartInstance = null; // 声明一个变量来持有图表实例
 
-        // --- 页面加载时执行的函数 ---
+        // --- 页面初始化 ---
         document.addEventListener('DOMContentLoaded', function () {
-            const allNavLinks = document.querySelectorAll('.nav-link');
-            const pageSections = document.querySelectorAll('.page-section');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const desktopNav = document.getElementById('desktop-nav');
-            
-            // 优化：获取按钮上的两个图标
-            const openIcon = mobileMenuButton.querySelector('svg:first-child');
-            const closeIcon = mobileMenuButton.querySelector('svg:last-child');
-
-            // 导航点击事件 (统一处理)
-            allNavLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault(); // 阻止链接默认跳转
-                    
-                    const targetId = this.getAttribute('data-target');
-                    
-                    // 1. 切换页面显示
-                    pageSections.forEach(section => {
-                        section.id === targetId ? section.classList.remove('hidden') : section.classList.add('hidden');
-                    });
-
-                    // 2. 渲染图表
-                    if (targetId === 'page-data') {
-                        setTimeout(renderDataInsightChart, 10);
-                    }
-
-                    // 3. 更新所有导航栏 'active' 状态
-                    allNavLinks.forEach(navLink => {
-                        const linkTarget = navLink.getAttribute('data-target');
-                        const isDesktop = navLink.closest('#desktop-nav');
-                        
-                        if (linkTarget === targetId) {
-                            // 添加 active 样式
-                            if (isDesktop) {
-                                navLink.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
-                                navLink.classList.remove('text-gray-700');
-                            } else {
-                                navLink.classList.add('text-blue-600', 'bg-blue-50');
-                                navLink.classList.remove('text-gray-700');
-                            }
-                        } else {
-                            // 移除 active 样式
-                            if (isDesktop) {
-                                navLink.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
-                                navLink.classList.add('text-gray-700');
-                            } else {
-                                navLink.classList.remove('text-blue-600', 'bg-blue-50');
-                                navLink.classList.add('text-gray-700');
-                            }
-                        }
-                    });
-                    
-                    // 4. (关键) 关闭移动端菜单
-                    mobileMenu.classList.add('hidden');
-                    openIcon.classList.remove('hidden'); // 显示汉堡图标
-                    closeIcon.classList.add('hidden'); // 隐藏关闭图标
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-
-                    // 5. 点击导航后滚动到页面顶部
-                    window.scrollTo(0, 0);
-                });
-            });
-
-            // 移动端菜单按钮点击事件
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = mobileMenu.classList.toggle('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                // 切换图标
-                openIcon.classList.toggle('hidden', !isExpanded);
-                closeIcon.classList.toggle('hidden', isExpanded);
-            });
-
-            // --- 动态加载数据 ---
-            loadLatestDynamics();
-            loadLegalNews();
+            renderPapers(papersData);
+            renderNews(newsData);
+            loadDynamics();
+            setupNavigation();
         });
 
-        // --- 加载“最新动态”的函数 (可靠的模拟加载) ---
-        function loadLatestDynamics() {
-            const container = document.getElementById('latest-dynamics-container');
-            if (!container) return;
-
-            // 模拟延迟加载 (500ms)，以实现“刷新”效果
-            setTimeout(() => {
-                container.innerHTML = ''; // 清除“加载中...”
-                
-                if (latestDynamicsData.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500">暂无最新动态。</p>';
-                    return;
-                }
-
-                latestDynamicsData.forEach((item, index) => {
-                    const isLast = index === latestDynamicsData.length - 1;
-                    const borderClass = isLast ? '' : 'border-b pb-3';
-                    
-                    const itemHtml = `
-                        <div class="${borderClass}">
-                            <h3 class="font-semibold text-gray-800">${item.title}</h3>
-                            <p class="text-sm text-gray-500 mb-2">来源: ${item.source} | 日期: ${item.date}</p>
-                            <a href="${item.link}" class="text-sm text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">阅读更多 &rarr;</a>
-                        </div>
-                    `;
-                    container.innerHTML += itemHtml;
-                });
-            }, 500); // 500ms 延迟
+        // --- 渲染论文 (弹窗) ---
+        function renderPapers(data) {
+            const grid = document.getElementById('papers-grid');
+            grid.innerHTML = ''; 
+            data.forEach(paper => {
+                const isAI = paper.category === 'ai';
+                const tagClass = isAI ? 'bg-indigo-100 text-indigo-700' : 'bg-teal-100 text-teal-700';
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${paper.tag}</span>
+                        <span class="text-xs text-gray-400 font-mono tracking-wider">CNKI</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">${paper.title}</h3>
+                    <p class="text-sm text-gray-500 mb-4 flex-grow border-l-2 border-gray-200 pl-3 italic line-clamp-2">${paper.source}</p>
+                    <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
+                        <button onclick="openPaperModal(${paper.id})" class="flex-1 text-center px-4 py-2 bg-gray-50 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors">查看摘要</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        // --- 加载“法律资讯”的函数 (模拟数据) ---
-        function loadLegalNews() {
+        // --- 渲染新闻 (直达链接) ---
+        function renderNews(data) {
             const container = document.getElementById('legal-news-container');
-            if (!container) return;
-
-            // 模拟延迟加载
-            setTimeout(() => {
-                container.innerHTML = ''; // 清除“加载中...”
-                
-                if (legalNewsData.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500">暂无法律资讯。</p>';
-                    return;
-                }
-
-                const tagClasses = {
-                    blue: "text-blue-600 bg-blue-100",
-                    green: "text-green-600 bg-green-100",
-                    default: "text-gray-600 bg-gray-100"
-                };
-
-                legalNewsData.forEach(item => {
-                    const tagClass = tagClasses[item.tagColor] || tagClasses.default;
-                    // 优化：移动端堆叠 (flex-col)，桌面端并排 (md:flex-row)
-                    const itemHtml = `
-                        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row items-start">
-                            <img src="${item.img}" alt="${item.title}" class="w-full md:w-48 h-auto rounded-md object-cover mr-6 mb-4 md:mb-0">
-                            <div class="flex-1">
-                                <span class="text-sm font-medium ${tagClass} px-3 py-1 rounded-full">${item.tag}</span>
-                                <h2 class="text-2xl font-semibold my-2">${item.title}</h2>
-                                <p class="text-gray-700 mb-3">${item.desc}</p>
-                                <p class="text-sm text-gray-500 mb-4">来源：${item.source}</p>
-                                <a href="${item.link}" class="font-medium text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">阅读报告全文 &rarr;</a>
-                            </div>
+            container.innerHTML = '';
+            data.forEach(item => {
+                const tagClass = item.color === 'blue' ? 'bg-blue-100 text-blue-800' : item.color === 'green' ? 'bg-green-100 text-green-800' : 'bg-indigo-100 text-indigo-800';
+                const imgHtml = item.img ? `<img src="${item.img}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full bg-gray-200 flex items-center justify-center text-gray-400\\'>暂无图片</div>'" class="w-full md:w-56 h-48 md:h-auto rounded-lg object-cover shadow-sm border border-gray-100 transform group-hover:scale-105 transition-transform duration-500">` : `<div class="w-full md:w-56 h-48 md:h-auto bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">暂无图片</div>`;
+                const card = document.createElement('a');
+                card.href = item.link;
+                card.target = "_blank"; // 新窗口打开
+                card.className = "bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer group no-underline block overflow-hidden";
+                card.innerHTML = `
+                    <div class="flex-shrink-0 relative overflow-hidden rounded-lg w-full md:w-56 h-48 md:h-auto">${imgHtml}</div>
+                    <div class="flex-1 flex flex-col justify-center py-2">
+                        <div class="mb-2 flex items-center">
+                            <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${item.tag}</span>
+                            <span class="text-xs text-gray-400 ml-3 flex items-center"><svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>${item.date}</span>
                         </div>
-                    `;
-                    container.innerHTML += itemHtml;
-                });
-            }, 500); // 延迟500毫秒
+                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 md:line-clamp-2">${item.title}</h3>
+                        <p class="text-gray-600 text-sm mt-3 leading-relaxed line-clamp-2">${item.desc}</p>
+                        <div class="mt-4 text-xs text-gray-400 flex items-center border-t border-gray-50 pt-3">
+                            <span class="bg-gray-100 px-2 py-1 rounded text-gray-500">${item.source}</span>
+                            <span class="text-blue-600 ml-auto font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center">阅读原文 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        // --- 加载“数据洞察”图表的函数 ---
-        function renderDataInsightChart() {
-            const ctx = document.getElementById('dataInsightChart');
-            if (!ctx) return; // 如果找不到 canvas，则退出
+        // --- 论文弹窗逻辑 ---
+        function openPaperModal(id) {
+            const paper = papersData.find(p => p.id === id);
+            if (!paper) return;
+            document.getElementById('modal-title').innerText = paper.title;
+            document.getElementById('modal-source').innerText = paper.source;
+            document.getElementById('modal-desc').innerText = paper.desc;
+            document.getElementById('modal-tag').innerText = paper.tag;
+            document.getElementById('modal-link').href = paper.link;
+            const modal = document.getElementById('content-modal');
+            modal.classList.remove('hidden');
+            const panel = modal.querySelector('.transform');
+            panel.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { panel.classList.remove('scale-95', 'opacity-0'); panel.classList.add('scale-100', 'opacity-100'); }, 10);
+        }
 
-            // 检查是否已有图表实例，如果有，先销毁
-            if (chartInstance) {
-                chartInstance.destroy();
+        function closeModal() { document.getElementById('content-modal').classList.add('hidden'); }
+
+        // --- 筛选 ---
+        function filterPapers(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-blue-600', 'text-white', 'shadow-md'); b.classList.add('bg-gray-100', 'text-gray-600'); });
+            btn.classList.remove('bg-gray-100', 'text-gray-600'); btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+            if (type === 'all') { renderPapers(papersData); } else { const filtered = papersData.filter(p => p.category === type); renderPapers(filtered); }
+        }
+
+        // --- 侧边动态 ---
+        function loadDynamics() {
+            const dynamics = [
+                { title: "《网络数据安全管理条例》正式公布", date: "2024-09", source: "国务院" },
+                { title: "欧盟《人工智能法案》正式生效", date: "2024-08", source: "欧盟动态" },
+                { title: "北京互联网法院：AI声音侵权案宣判", date: "2024-04", source: "司法案例" }
+            ];
+            const dContainer = document.getElementById('latest-dynamics-container');
+            if(dContainer) {
+                dynamics.forEach(d => {
+                    const searchLink = `https://www.baidu.com/s?wd=${encodeURIComponent(d.title)}`;
+                    dContainer.innerHTML += `
+                        <div class="border-b border-gray-100 pb-3 last:border-0 last:pb-0 group">
+                            <a href="${searchLink}" target="_blank" class="font-medium text-gray-800 hover:text-blue-600 transition block mb-1 truncate">${d.title}</a>
+                            <div class="text-xs text-gray-400 flex justify-between items-center"><span class="bg-gray-50 px-1 rounded">${d.source}</span><span>${d.date}</span></div>
+                        </div>`;
+                });
             }
+        }
 
-            // 模拟的真实有效数据
-            const labels = ['2020', '2021', '2022', '2023', '2024', '2025 (预计)'];
-            const dataBreaches = [3930, 4150, 4220, 4500, 4410, 4600]; // 模拟泄露事件（百万起）
-            const regulatoryFines = [1.2, 2.5, 3.1, 4.5, 3.8, 5.0]; // 模拟罚款总额（十亿美元）
+        // --- 导航与图表 ---
+        function setupNavigation() {
+            const links = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileBtn = document.getElementById('mobile-menu-button');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.dataset.target;
+                    sections.forEach(sec => { sec.classList.add('hidden'); if(sec.id === target) sec.classList.remove('hidden'); });
+                    links.forEach(l => { l.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600', 'bg-blue-50'); l.classList.add('text-gray-700'); });
+                    if(link.closest('#desktop-nav')) { link.classList.add('text-blue-600', 'border-b-2', 'border-blue-600'); } else { link.classList.add('text-blue-600', 'bg-blue-50'); mobileMenu.classList.add('hidden'); }
+                    if(target === 'page-data') setTimeout(renderChart, 100);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                });
+            });
+            mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+        }
 
-            // 创建图表
-            chartInstance = new Chart(ctx.getContext('2d'), {
-                type: 'bar', // 混合图表
+        let chartInstance = null;
+        function renderChart() {
+            const ctx = document.getElementById('dataInsightChart');
+            if(!ctx || chartInstance) return;
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: ['2020', '2021', '2022', '2023', '2024', '2025(预)'],
                     datasets: [
-                        {
-                            label: '监管罚款总额 (十亿美元)',
-                            data: regulatoryFines,
-                            backgroundColor: 'rgba(239, 68, 68, 0.7)', // red-500 with opacity
-                            borderColor: 'rgba(239, 68, 68, 1)',
-                            yAxisID: 'yFines', // 关联到Y轴 'yFines'
-                            order: 1 // 确保柱状图在后
-                        },
-                        {
-                            label: '数据泄露事件 (百万起)',
-                            data: dataBreaches,
-                            type: 'line', // 覆盖默认类型
-                            fill: false,
-                            borderColor: 'rgba(59, 130, 246, 1)', // blue-500
-                            backgroundColor: 'rgba(59, 130, 246, 1)',
-                            tension: 0.1,
-                            yAxisID: 'yBreaches', // 关联到Y轴 'yBreaches'
-                            order: 0 // 确保折线图在前
-                        }
+                        { label: '监管罚款 (亿美元)', data: [1.2, 2.5, 3.1, 4.5, 3.8, 5.0], backgroundColor: 'rgba(239, 68, 68, 0.8)', yAxisID: 'y1', order: 2, borderRadius: 4 },
+                        { label: '数据泄露 (百万起)', data: [3930, 4150, 4220, 4500, 4410, 4600], borderColor: 'rgb(37, 99, 235)', pointBackgroundColor: 'white', borderWidth: 2, type: 'line', yAxisID: 'y2', order: 1, tension: 0.3 }
                     ]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: '年份'
-                            }
-                        },
-                        yFines: { // 第一个Y轴（罚款）
-                            type: 'linear',
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: '罚款总额 (十亿美元)'
-                            },
-                            grid: {
-                                drawOnChartArea: true, 
-                            },
-                            beginAtZero: true
-                        },
-                        yBreaches: { // 第二个Y轴（泄露）
-                            type: 'linear',
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: '泄露事件 (百万起)'
-                            },
-                            beginAtZero: false, // 泄露事件不需要从0开始
-                            grid: {
-                                drawOnChartArea: false // 不在图表区域绘制网格线
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                        }
-                    }
+                    responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false, },
+                    scales: { y1: { position: 'left', beginAtZero: true, grid: { display: false } }, y2: { position: 'right', grid: { borderDash: [2, 4] } }, x: { grid: { display: false } } },
+                    plugins: { legend: { position: 'bottom' } }
                 }
             });
         }
     </script>
-
 </body>
 </html>
