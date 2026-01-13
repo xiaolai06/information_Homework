@@ -7,37 +7,56 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* 字体优化：使用系统默认字体，加载最快 */
+        /* 字体优化 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #f8fafc;
-            color: #1f2937;
+            color: #334155;
         }
         .page-section {
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.5s ease-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* 渐变按钮样式 */
+        .btn-gradient-blue {
+            background-image: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient-blue:hover {
+            background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+        .btn-gradient-purple {
+            background-image: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient-purple:hover {
+            background-image: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.3);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white/90 backdrop-blur shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="location.reload()">
-                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-sm">L</div>
-                    <span class="text-2xl font-bold text-gray-900 tracking-tight">法学信息站</span>
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="location.reload()">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-sm group-hover:bg-blue-700 transition-colors">L</div>
+                    <span class="text-2xl font-bold text-gray-800 tracking-tight">法学信息站</span>
                 </div>
                 
                 <div id="desktop-nav" class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-blue-600 border-b-2 border-blue-600 transition-colors" data-target="page-home">首页</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-research">最新成果</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-news">法律资讯</a>
-                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors" data-target="page-data">数据洞察</a>
+                    <div class="ml-10 flex items-baseline space-x-2">
+                        <a href="#" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-blue-600 bg-blue-50 transition-all" data-target="page-home">首页</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all" data-target="page-research">最新成果</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all" data-target="page-news">法律资讯</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all" data-target="page-data">数据洞察</a>
                     </div>
                 </div>
 
@@ -63,52 +82,59 @@
     <main class="flex-grow max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full">
 
         <section id="page-home" class="page-section">
-            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-xl rounded-2xl overflow-hidden p-8 md:p-16 mb-10 text-center text-white">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">探索法律信息的未来</h1>
-                <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
-                    聚焦法律科技前沿，追踪数据合规动态，赋能新时代法律人信息素养。
-                </p>
+            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-2xl rounded-2xl overflow-hidden p-8 md:p-14 mb-10 text-center text-white relative">
+                <div class="relative z-10">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-5 tracking-tight">探索法律信息的未来</h1>
+                    <p class="text-base md:text-lg text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
+                        聚焦法律科技前沿，追踪数据合规动态，赋能新时代法律人信息素养。
+                    </p>
+                </div>
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-white opacity-5 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-400 opacity-10 blur-3xl"></div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 bg-white shadow rounded-xl p-6 border border-gray-100">
-                    <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center">
-                        <span class="w-1 h-6 bg-blue-600 mr-2 rounded"></span>
+                <div class="lg:col-span-2 bg-white shadow-sm hover:shadow-md transition-shadow rounded-xl p-6 border border-gray-100">
+                    <h2 class="text-lg font-bold mb-6 text-gray-800 flex items-center">
+                        <span class="w-1.5 h-5 bg-blue-600 mr-2 rounded-full"></span>
                         专题概况：法律信息检索趋势
                     </h2>
                     <div class="space-y-6">
                         <div class="group">
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium text-gray-700">人工智能与法律 (AI & Law)</span>
-                                <span class="text-sm font-medium text-blue-600">85%</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-600">人工智能与法律 (AI & Law)</span>
+                                <span class="text-sm font-bold text-blue-600">85%</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3">
-                                <div class="bg-blue-600 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="group">
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium text-gray-700">个人信息保护 (PIPL)</span>
-                                <span class="text-sm font-medium text-blue-600">70%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3">
-                                <div class="bg-indigo-500 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 70%"></div>
+                            <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full transition-all duration-1000 w-[85%] shadow-sm"></div>
                             </div>
                         </div>
                         <div class="group">
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium text-gray-700">知识产权保护</span>
-                                <span class="text-sm font-medium text-blue-600">60%</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-600">个人信息保护 (PIPL)</span>
+                                <span class="text-sm font-bold text-blue-600">70%</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3">
-                                <div class="bg-purple-500 h-3 rounded-full transition-all duration-1000 shadow-sm" style="width: 60%"></div>
+                            <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-indigo-400 to-indigo-500 h-2.5 rounded-full transition-all duration-1000 w-[70%]"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-600">知识产权保护</span>
+                                <span class="text-sm font-bold text-blue-600">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-purple-400 to-purple-500 h-2.5 rounded-full transition-all duration-1000 w-[60%]"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white shadow rounded-xl p-6 border border-gray-100 flex flex-col">
-                    <h2 class="text-xl font-bold mb-4 text-gray-800">最新动态</h2>
+                <div class="bg-white shadow-sm hover:shadow-md transition-shadow rounded-xl p-6 border border-gray-100 flex flex-col">
+                    <h2 class="text-lg font-bold mb-4 text-gray-800 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        最新动态
+                    </h2>
                     <div id="latest-dynamics-container" class="space-y-4 text-sm flex-grow">
                         </div>
                 </div>
@@ -116,28 +142,34 @@
         </section>
 
         <section id="page-research" class="page-section hidden">
-            <div class="mb-8 border-b pb-4">
-                <h1 class="text-3xl font-bold text-gray-900">最新成果</h1>
-                <p class="text-gray-600 mt-2">精选法律信息素养领域相关的中英文核心检索主题，点击卡片直达百度学术搜索结果。</p>
+            <div class="mb-8 pb-3 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-900">最新成果</h1>
+                <p class="text-gray-500 mt-2 text-sm">精选法律信息素养领域的中英文核心检索主题，点击卡片直达百度学术搜索结果。</p>
             </div>
 
-            <div class="mb-10">
-                <h2 class="text-xl font-bold text-blue-800 border-l-4 border-blue-600 pl-3 mb-6">中文核心期刊检索 (Baidu Xueshu)</h2>
+            <div class="mb-12">
+                <div class="flex items-center mb-6">
+                    <span class="w-1 h-6 bg-blue-600 rounded-r mr-3"></span>
+                    <h2 class="text-lg font-bold text-gray-800">中文核心期刊检索 (Baidu Xueshu)</h2>
+                </div>
                 <div id="zh-papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     </div>
             </div>
 
             <div>
-                <h2 class="text-xl font-bold text-purple-800 border-l-4 border-purple-600 pl-3 mb-6">外文前沿文献检索 (Baidu Xueshu - English Terms)</h2>
+                <div class="flex items-center mb-6">
+                    <span class="w-1 h-6 bg-purple-600 rounded-r mr-3"></span>
+                    <h2 class="text-lg font-bold text-gray-800">外文前沿文献检索 (English Terms)</h2>
+                </div>
                 <div id="en-papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     </div>
             </div>
         </section>
 
         <section id="page-news" class="page-section hidden">
-            <div class="mb-8 border-b pb-4">
-                <h1 class="text-3xl font-bold text-gray-900">法律资讯</h1>
-                <p class="text-gray-600 mt-2">聚焦国内法律前沿，点击卡片搜索相关权威报道。</p>
+            <div class="mb-8 pb-3 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-900">法律资讯</h1>
+                <p class="text-gray-500 mt-2 text-sm">聚焦国内法律前沿，点击卡片直达官方网站查看红头文件或新闻通稿。</p>
             </div>
             
             <div id="legal-news-container" class="space-y-6">
@@ -145,17 +177,22 @@
         </section>
 
         <section id="page-data" class="page-section hidden">
-            <h1 class="text-3xl font-bold mb-6 border-b pb-3">数据洞察</h1>
-            <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">全球数据泄露事件与监管罚款趋势</h2>
+            <div class="mb-8 pb-3 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-900">数据洞察</h1>
+            </div>
+            <div class="bg-white shadow-lg rounded-xl p-6 md:p-8 border border-gray-100">
+                <h2 class="text-lg font-bold mb-6 text-gray-800">全球数据泄露事件与监管罚款趋势</h2>
                 <div class="relative w-full h-80 md:h-96">
                     <canvas id="dataInsightChart"></canvas>
                 </div>
-                <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
-                    <h3 class="text-sm font-bold text-blue-800 mb-2">📊 数据解读：</h3>
-                    <ul class="list-disc list-inside text-sm text-blue-700 space-y-1">
+                <div class="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-xl border border-blue-100">
+                    <h3 class="text-sm font-bold text-blue-800 mb-2 flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        数据解读
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 ml-1">
                         <li><strong>事件频发：</strong> 近年来数据泄露事件数量持续高位运行，网络安全形势严峻。</li>
-                        <li><strong>监管趋严：</strong> 随着《数据安全法》等法规落地，监管罚款总额呈现指数级增长。</li>
+                        <li><strong>监管趋严：</strong> 随着《数据安全法》等法规落地，监管罚款总额呈现指数级增长趋势。</li>
                     </ul>
                 </div>
             </div>
@@ -163,29 +200,33 @@
 
     </main>
 
-    <footer class="bg-white border-t mt-auto py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="mb-8">
-                <h3 class="text-lg font-bold text-gray-800 mb-4 tracking-wide">制作人名单</h3>
-                <div class="flex flex-wrap justify-center gap-4 text-gray-600 font-medium">
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">王佳怡</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">左雪</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">周婧梅</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">杨映丽</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">黄家淳</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-full">林斯洁</span>
-                </div>
+<footer class="bg-white border-t border-gray-100 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        
+        <div class="flex flex-col items-center justify-center text-xs space-y-1">
+            
+            <div class="flex items-center flex-wrap justify-center gap-x-1 text-gray-600">
+                <span class="font-bold">制作团队:</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">王佳怡</span><span class="text-gray-300">/</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">左雪</span><span class="text-gray-300">/</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">周婧梅</span><span class="text-gray-300">/</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">杨映丽</span><span class="text-gray-300">/</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">黄家淳</span><span class="text-gray-300">/</span>
+                <span class="hover:text-blue-600 cursor-default transition-colors">林斯洁</span>
             </div>
-            <div class="text-sm text-gray-400 border-t border-gray-100 pt-8">
-                <p class="mb-2">&copy; 2025 一二三四五六组 - 法律信息素养专题作业</p>
-                <p>所有内容仅供学术研究使用，数据来源于公开网络。</p>
+
+            <div class="text-gray-400 flex items-center gap-2">
+                <span>&copy; 2025 法律信息素养专题作业</span>
+                <span class="w-px h-3 bg-gray-300"></span> <span>数据仅供学术交流</span>
             </div>
+
         </div>
-    </footer>
+    </div>
+</footer>
 
     <script>
         // --- 1. 论文检索数据 (中英文分区) ---
-        // 链接统一使用百度学术搜索：https://xueshu.baidu.com/s?wd=关键词
+        // 链接统一使用百度学术搜索
         
         const zhPapers = [
             {
@@ -241,7 +282,7 @@
             }
         ];
 
-        // --- 2. 法律资讯 (检索直达) ---
+        // --- 2. 法律资讯 (官方直达链接) ---
         const newsData = [
             {
                 img: "photo1.png", 
@@ -250,8 +291,9 @@
                 title: "国家网信办等七部门发布《生成式人工智能服务管理暂行办法》",
                 date: "2023-07",
                 source: "网信中国",
-                link: "https://www.baidu.com/s?wd=生成式人工智能服务管理暂行办法 网信办", 
-                desc: "我国首部针对生成式人工智能产业的规范性政策，明确了监管红线与底线。点击搜索查看官方全文及解读。"
+                // 直达官网
+                link: "http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm", 
+                desc: "我国首部针对生成式人工智能产业的规范性政策，明确了监管红线与底线。点击查看官方全文及解读。"
             },
             {
                 img: "photo2.png", 
@@ -260,8 +302,9 @@
                 title: "国家网信办发布《促进和规范数据跨境流动规定》",
                 date: "2024-03",
                 source: "网信中国",
-                link: "https://www.baidu.com/s?wd=促进和规范数据跨境流动规定 网信办", 
-                desc: "放宽数据出境安全评估门槛，为企业减负。点击搜索查看相关政策详情及答记者问。"
+                // 直达官网
+                link: "http://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", 
+                desc: "放宽数据出境安全评估门槛，为企业减负。点击查看相关政策详情及答记者问。"
             },
             {
                 img: "photo3.png", 
@@ -270,8 +313,9 @@
                 title: "最高检：严厉打击利用AI“换脸”实施的电信网络诈骗",
                 date: "2024-02",
                 source: "最高人民检察院",
-                link: "https://www.baidu.com/s?wd=最高检 打击AI换脸诈骗", 
-                desc: "针对深度伪造技术诈骗，检察机关加强技术反制与法律适用。点击搜索查看最高检新闻发布会实录。"
+                // 直达官网
+                link: "https://www.spp.gov.cn/spp/xwfbh/wsfbt/202402/t20240221_645524.shtml", 
+                desc: "针对深度伪造技术诈骗，检察机关加强技术反制与法律适用。点击查看最高检新闻发布会实录。"
             }
         ];
 
@@ -284,32 +328,31 @@
             setupNavigation();
         });
 
-        // --- 渲染论文检索卡片 (通用函数) ---
+        // --- 渲染论文检索卡片 (美化版) ---
         function renderPaperSection(containerId, data, type) {
             const grid = document.getElementById(containerId);
             grid.innerHTML = ''; 
             
             data.forEach(item => {
-                const tagClass = type === 'en' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
-                const iconColor = type === 'en' ? 'text-purple-500' : 'text-blue-500';
-                // 构造百度学术搜索链接
+                const isEn = type === 'en';
+                const tagClass = isEn ? 'bg-purple-50 text-purple-700 border border-purple-100' : 'bg-blue-50 text-blue-700 border border-blue-100';
+                const btnClass = isEn ? 'btn-gradient-purple text-white' : 'btn-gradient-blue text-white';
                 const searchLink = `https://xueshu.baidu.com/s?wd=${encodeURIComponent(item.searchTerm)}`;
-                const btnText = type === 'en' ? 'Search in Baidu Academic' : '在百度学术中检索';
+                const btnText = isEn ? 'Search in Baidu' : '百度学术检索';
 
                 const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full";
+                card.className = "bg-white p-6 rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full";
                 
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${item.tag}</span>
-                        <svg class="w-5 h-5 ${iconColor}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded ${tagClass}">${item.tag}</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">${item.title}</h3>
-                    <p class="text-sm text-gray-500 mb-4 flex-grow border-l-2 border-gray-200 pl-3 italic">${item.desc}</p>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight group-hover:text-blue-600 transition-colors">${item.title}</h3>
+                    <p class="text-sm text-gray-500 mb-5 flex-grow leading-relaxed">${item.desc}</p>
                     <div class="mt-auto pt-4 border-t border-gray-50">
-                        <a href="${searchLink}" target="_blank" class="block w-full text-center px-4 py-2 bg-gray-50 text-gray-700 text-sm font-medium rounded-lg hover:bg-${type === 'en' ? 'purple' : 'blue'}-50 hover:text-${type === 'en' ? 'purple' : 'blue'}-600 transition-colors flex items-center justify-center gap-2">
+                        <a href="${searchLink}" target="_blank" class="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 ${btnClass}">
                             <span>${btnText}</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </a>
                     </div>
                 `;
@@ -317,30 +360,41 @@
             });
         }
 
-        // --- 渲染新闻 (搜索直达) ---
+        // --- 渲染新闻 (直达链接) ---
         function renderNews(data) {
             const container = document.getElementById('legal-news-container');
             container.innerHTML = '';
             data.forEach(item => {
-                const tagClass = item.color === 'blue' ? 'bg-blue-100 text-blue-800' : item.color === 'green' ? 'bg-green-100 text-green-800' : 'bg-indigo-100 text-indigo-800';
-                const imgHtml = item.img ? `<img src="${item.img}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full bg-gray-200 flex items-center justify-center text-gray-400\\'>暂无图片</div>'" class="w-full md:w-56 h-48 md:h-auto rounded-lg object-cover shadow-sm border border-gray-100 transform group-hover:scale-105 transition-transform duration-500">` : `<div class="w-full md:w-56 h-48 md:h-auto bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">暂无图片</div>`;
+                const tagClass = item.color === 'blue' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 
+                                 item.color === 'green' ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-indigo-50 text-indigo-600 border border-indigo-100';
+                
+                const imgHtml = item.img ? 
+                    `<img src="${item.img}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs\\'>暂无图片</div>'" class="w-full md:w-56 h-48 md:h-auto rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform duration-500">` : 
+                    `<div class="w-full md:w-56 h-48 md:h-auto bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">暂无图片</div>`;
                 
                 const card = document.createElement('a');
                 card.href = item.link;
                 card.target = "_blank"; 
-                card.className = "bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer group no-underline block overflow-hidden";
+                card.className = "bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:border-blue-200 transition-all cursor-pointer group no-underline block overflow-hidden";
                 card.innerHTML = `
-                    <div class="flex-shrink-0 relative overflow-hidden rounded-lg w-full md:w-56 h-48 md:h-auto">${imgHtml}</div>
+                    <div class="flex-shrink-0 relative overflow-hidden rounded-lg w-full md:w-56 h-48 md:h-auto">
+                        ${imgHtml}
+                    </div>
                     <div class="flex-1 flex flex-col justify-center py-2">
-                        <div class="mb-2 flex items-center">
-                            <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${item.tag}</span>
-                            <span class="text-xs text-gray-400 ml-3 flex items-center"><svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>${item.date}</span>
+                        <div class="mb-3 flex items-center">
+                            <span class="text-xs font-bold px-2.5 py-0.5 rounded ${tagClass}">${item.tag}</span>
+                            <span class="text-xs text-gray-400 ml-3 flex items-center">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                ${item.date}
+                            </span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 md:line-clamp-2">${item.title}</h3>
-                        <p class="text-gray-600 text-sm mt-3 leading-relaxed line-clamp-2">${item.desc}</p>
-                        <div class="mt-4 text-xs text-gray-400 flex items-center border-t border-gray-50 pt-3">
-                            <span class="bg-gray-100 px-2 py-1 rounded text-gray-500">${item.source}</span>
-                            <span class="text-blue-600 ml-auto font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center">点击搜索详情 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                        <h3 class="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">${item.title}</h3>
+                        <p class="text-gray-500 text-sm mt-3 leading-relaxed line-clamp-2">${item.desc}</p>
+                        <div class="mt-4 text-xs text-gray-400 flex items-center pt-3 border-t border-gray-50">
+                            <span class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-gray-300 mr-2"></span>${item.source}</span>
+                            <span class="text-blue-600 ml-auto font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+                                阅读全文 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </span>
                         </div>
                     </div>
                 `;
@@ -348,21 +402,38 @@
             });
         }
 
-        // --- 侧边动态 ---
+        // --- 侧边动态 (直达具体网址) ---
         function loadDynamics() {
             const dynamics = [
-                { title: "《网络数据安全管理条例》正式公布", date: "2024-09", source: "国务院" },
-                { title: "欧盟《人工智能法案》正式生效", date: "2024-08", source: "欧盟动态" },
-                { title: "北京互联网法院：AI声音侵权案宣判", date: "2024-04", source: "司法案例" }
+                { 
+                    title: "《网络数据安全管理条例》正式公布", 
+                    date: "2024-09", 
+                    source: "国务院",
+                    link: "https://www.gov.cn/zhengce/zhengceku/202409/content_6977767.htm"
+                },
+                { 
+                    title: "欧盟《人工智能法案》正式生效", 
+                    date: "2024-08", 
+                    source: "新华网",
+                    link: "https://www.xinhuanet.com/20240801/d8e577bfd2cb4044840d1e1ad17357c4/c.html"
+                },
+                { 
+                    title: "北京互联网法院：AI声音侵权案宣判", 
+                    date: "2024-04", 
+                    source: "网信徐州",
+                    link: "https://wxb.xzdw.gov.cn/wlaq/zljg/202511/t20251113_623090.html"
+                }
             ];
             const dContainer = document.getElementById('latest-dynamics-container');
             if(dContainer) {
                 dynamics.forEach(d => {
-                    const searchLink = `https://www.baidu.com/s?wd=${encodeURIComponent(d.title)}`;
                     dContainer.innerHTML += `
                         <div class="border-b border-gray-100 pb-3 last:border-0 last:pb-0 group">
-                            <a href="${searchLink}" target="_blank" class="font-medium text-gray-800 hover:text-blue-600 transition block mb-1 truncate">${d.title}</a>
-                            <div class="text-xs text-gray-400 flex justify-between items-center"><span class="bg-gray-50 px-1 rounded">${d.source}</span><span>${d.date}</span></div>
+                            <a href="${d.link}" target="_blank" class="font-medium text-gray-700 hover:text-blue-600 transition block mb-1 truncate" title="${d.title}">${d.title}</a>
+                            <div class="text-xs text-gray-400 flex justify-between items-center">
+                                <span class="bg-gray-50 px-1.5 py-0.5 rounded text-gray-500 scale-90 origin-left">${d.source}</span>
+                                <span>${d.date}</span>
+                            </div>
                         </div>`;
                 });
             }
@@ -374,17 +445,33 @@
             const sections = document.querySelectorAll('.page-section');
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileBtn = document.getElementById('mobile-menu-button');
-            links.forEach(link => {
-                link.addEventListener('click', (e) => {
+            
+            links.forEach(l => {
+                l.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const target = link.dataset.target;
-                    sections.forEach(sec => { sec.classList.add('hidden'); if(sec.id === target) sec.classList.remove('hidden'); });
-                    links.forEach(l => { l.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600', 'bg-blue-50'); l.classList.add('text-gray-700'); });
-                    if(link.closest('#desktop-nav')) { link.classList.add('text-blue-600', 'border-b-2', 'border-blue-600'); } else { link.classList.add('text-blue-600', 'bg-blue-50'); mobileMenu.classList.add('hidden'); }
-                    if(target === 'page-data') setTimeout(renderChart, 100);
+                    const targetId = l.dataset.target;
+                    sections.forEach(sec => {
+                        sec.classList.add('hidden');
+                        if(sec.id === targetId) sec.classList.remove('hidden');
+                    });
+                    
+                    links.forEach(link => {
+                        link.classList.remove('bg-blue-50', 'text-blue-600');
+                        link.classList.add('text-gray-600');
+                    });
+                    const targetLinks = document.querySelectorAll(`[data-target="${targetId}"]`);
+                    targetLinks.forEach(tl => {
+                        tl.classList.remove('text-gray-600');
+                        tl.classList.add('bg-blue-50', 'text-blue-600');
+                    });
+
+                    mobileMenu.classList.add('hidden');
+                    
+                    if(targetId === 'page-data') setTimeout(renderChart, 100);
                     window.scrollTo({top: 0, behavior: 'smooth'});
                 });
             });
+
             mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
         }
 
@@ -397,8 +484,8 @@
                 data: {
                     labels: ['2020', '2021', '2022', '2023', '2024', '2025(预)'],
                     datasets: [
-                        { label: '监管罚款 (亿美元)', data: [1.2, 2.5, 3.1, 4.5, 3.8, 5.0], backgroundColor: 'rgba(239, 68, 68, 0.8)', yAxisID: 'y1', order: 2, borderRadius: 4 },
-                        { label: '数据泄露 (百万起)', data: [3930, 4150, 4220, 4500, 4410, 4600], borderColor: 'rgb(37, 99, 235)', pointBackgroundColor: 'white', borderWidth: 2, type: 'line', yAxisID: 'y2', order: 1, tension: 0.3 }
+                        { label: '监管罚款 (亿美元)', data: [1.2, 2.5, 3.1, 4.5, 3.8, 5.0], backgroundColor: 'rgba(59, 130, 246, 0.8)', yAxisID: 'y1', order: 2, borderRadius: 4, barPercentage: 0.5 },
+                        { label: '数据泄露 (百万起)', data: [3930, 4150, 4220, 4500, 4410, 4600], borderColor: 'rgb(249, 115, 22)', pointBackgroundColor: 'white', borderWidth: 2, type: 'line', yAxisID: 'y2', order: 1, tension: 0.3 }
                     ]
                 },
                 options: {
