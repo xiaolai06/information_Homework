@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* 字体优化 */
+        /* 字体优化：使用系统默认字体，加载最快 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #f8fafc;
@@ -19,10 +19,6 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        .modal-backdrop {
-            backdrop-filter: blur(4px);
-            background-color: rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -120,26 +116,28 @@
         </section>
 
         <section id="page-research" class="page-section hidden">
-            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 border-b pb-4">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">最新成果</h1>
-                    <p class="text-gray-500 mt-2">精选法律信息素养领域相关的中文核心期刊论文 (8篇)</p>
-                </div>
-                <div class="flex space-x-2 mt-4 md:mt-0">
-                    <button class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-blue-600 text-white transition shadow-md" onclick="filterPapers('all', this)">全部</button>
-                    <button class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition" onclick="filterPapers('ai', this)">人工智能</button>
-                    <button class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition" onclick="filterPapers('data', this)">数据法治</button>
-                </div>
+            <div class="mb-8 border-b pb-4">
+                <h1 class="text-3xl font-bold text-gray-900">最新成果</h1>
+                <p class="text-gray-600 mt-2">精选法律信息素养领域相关的中英文核心检索主题，点击卡片直达百度学术搜索结果。</p>
             </div>
 
-            <div id="papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                </div>
+            <div class="mb-10">
+                <h2 class="text-xl font-bold text-blue-800 border-l-4 border-blue-600 pl-3 mb-6">中文核心期刊检索 (Baidu Xueshu)</h2>
+                <div id="zh-papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-purple-800 border-l-4 border-purple-600 pl-3 mb-6">外文前沿文献检索 (Baidu Xueshu - English Terms)</h2>
+                <div id="en-papers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
+            </div>
         </section>
 
         <section id="page-news" class="page-section hidden">
             <div class="mb-8 border-b pb-4">
                 <h1 class="text-3xl font-bold text-gray-900">法律资讯</h1>
-                <p class="text-gray-600 mt-2">点击卡片跳转至官方网站查看完整图文报道。</p>
+                <p class="text-gray-600 mt-2">聚焦国内法律前沿，点击卡片搜索相关权威报道。</p>
             </div>
             
             <div id="legal-news-container" class="space-y-6">
@@ -165,34 +163,6 @@
 
     </main>
 
-    <div id="content-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 modal-backdrop transition-opacity" onclick="closeModal()"></div>
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-xl w-full flex flex-col max-h-[85vh]">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto">
-                    <div class="sm:flex sm:items-start flex-col">
-                        <div class="text-center sm:text-left w-full">
-                            <span id="modal-tag" class="inline-block px-2 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-800 mb-2">Tag</span>
-                            <h3 class="text-xl leading-6 font-bold text-gray-900 mb-2" id="modal-title">标题</h3>
-                            <p class="text-sm text-gray-500 mb-2">来源：<span id="modal-source" class="font-medium">来源信息</span></p>
-                            <hr class="my-3 border-gray-100">
-                            <div class="text-sm text-gray-600 leading-relaxed space-y-2 text-justify" id="modal-desc">
-                                </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
-                    <a id="modal-link" href="#" target="_blank" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm shadow">
-                        学术检索
-                    </a>
-                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal()">
-                        关闭
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <footer class="bg-white border-t mt-auto py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="mb-8">
@@ -214,79 +184,74 @@
     </footer>
 
     <script>
-        // --- 1. 论文数据 ---
-        const papersData = [
+        // --- 1. 论文检索数据 (中英文分区) ---
+        // 链接统一使用百度学术搜索：https://xueshu.baidu.com/s?wd=关键词
+        
+        const zhPapers = [
             {
-                id: 1, category: 'ai', tag: '司法AI',
-                title: "人工智能在司法裁判中的应用伦理与规制",
-                source: "法学研究",
-                desc: "本文探讨了人工智能算法在量刑建议和证据分析中的伦理挑战，并提出了相应的法律规制框架，强调'人机协同'的裁判模式，避免算法黑箱带来的司法不公。",
-                link: "https://xueshu.baidu.com/s?wd=人工智能在司法裁判中的应用伦理与规制" 
+                tag: "司法AI",
+                title: "检索主题：人工智能在司法裁判中的应用",
+                desc: "探索AI量刑辅助工具的伦理规制与法律风险，关注人机协同裁判模式。",
+                searchTerm: "人工智能 司法裁判 伦理 规制"
             },
             {
-                id: 2, category: 'data', tag: '个人信息',
-                title: "个人信息保护法下“告知-同意”规则的实证研究",
-                source: "中国法学",
-                desc: "通过分析大量App隐私政策，本文研究了“告知-同意”规则在实践中的局限性，建议引入动态同意与场景化同意机制。",
-                link: "https://xueshu.baidu.com/s?wd=个人信息保护法下告知同意规则的实证研究"
+                tag: "个人信息",
+                title: "检索主题：个人信息保护法告知同意规则",
+                desc: "研究APP隐私政策中的形式合规问题，以及“单独同意”机制的适用场景。",
+                searchTerm: "个人信息保护法 告知同意 隐私政策"
             },
             {
-                id: 3, category: 'data', tag: '数据跨境',
-                title: "论数据跨境流动的法律规制与国际协调",
-                source: "环球法律评论",
-                desc: "分析了主要国家数据出境安全评估机制的异同，探讨了在RCEP和DEPA框架下构建全球数据治理规则的可能性。",
-                link: "https://xueshu.baidu.com/s?wd=数据跨境流动的法律规制与国际协调" 
+                tag: "数据跨境",
+                title: "检索主题：数据跨境流动的安全评估",
+                desc: "分析数据出境安全评估办法的实施难点，以及企业数据合规的出境路径。",
+                searchTerm: "数据跨境流动 安全评估 法律规制"
             },
             {
-                id: 4, category: 'ai', tag: '法律科技',
-                title: "“法律科技”驱动下的法律服务模式创新",
-                source: "法商研究",
-                desc: "研究了智能合同审查、在线纠纷解决（ODR）等法律科技工具如何重塑传统法律服务行业，并对律师职业伦理提出新要求。",
-                link: "https://xueshu.baidu.com/s?wd=法律科技驱动下的法律服务模式创新"
-            },
-            {
-                id: 5, category: 'ai', tag: '生成式AI',
-                title: "生成式人工智能内容的著作权定性与保护路径",
-                source: "知识产权",
-                desc: "针对ChatGPT等大模型生成内容的版权归属争议，本文主张在‘独创性’认定上应采取审慎态度，并区分人类创作与机器生成。",
-                link: "https://xueshu.baidu.com/s?wd=生成式人工智能内容的著作权定性与保护路径"
-            },
-            {
-                id: 6, category: 'data', tag: '算法规制',
-                title: "算法推荐技术的法律规制路径研究",
-                source: "现代法学",
-                desc: "深入剖析算法歧视、信息茧房等技术异化现象，提出从'算法透明度'到'算法问责制'的法律治理体系建设方案。",
-                link: "https://xueshu.baidu.com/s?wd=算法推荐技术的法律规制路径研究"
-            },
-            {
-                id: 7, category: 'data', tag: '数字经济',
-                title: "数字经济背景下数据财产权的构建逻辑",
-                source: "法学",
-                desc: "探讨数据作为新型生产要素的权利属性，试图在保护个人隐私与促进数据流通利用之间寻找数据财产权的制度平衡点。",
-                link: "https://xueshu.baidu.com/s?wd=数字经济背景下数据财产权的构建逻辑"
-            },
-            {
-                id: 8, category: 'ai', tag: '智慧法院',
-                title: "智慧法院建设的实践困境与优化进路",
-                source: "法律适用",
-                desc: "基于各地法院的调研数据，分析全流程网上办案中的技术壁垒与程序正义问题，提出智慧司法系统的迭代方向。",
-                link: "https://xueshu.baidu.com/s?wd=智慧法院建设的实践困境与优化进路"
+                tag: "法律科技",
+                title: "检索主题：法律科技与法律服务模式创新",
+                desc: "关注生成式AI如何赋能法律检索、合同审查及在线纠纷解决机制。",
+                searchTerm: "法律科技 法律服务 模式创新"
             }
         ];
 
-        // --- 2. 法律资讯 (已替换为最稳的官网链接) ---
+        const enPapers = [
+            {
+                tag: "Algorithmic Bias",
+                title: "Search: Algorithmic Bias in Judiciary",
+                desc: "Searching for literature on racial bias in risk assessment tools (e.g., COMPAS) and fairness metrics.",
+                searchTerm: "Algorithmic Bias Judiciary Risk Assessment"
+            },
+            {
+                tag: "AI Regulation",
+                title: "Search: The EU AI Act & Brussels Effect",
+                desc: "Researching the global impact of European AI regulation standards on digital governance.",
+                searchTerm: "EU AI Act Brussels Effect Regulation"
+            },
+            {
+                tag: "GDPR",
+                title: "Search: Data Portability under GDPR",
+                desc: "Literature review on data portability rights and their role in fostering digital market competition.",
+                searchTerm: "GDPR Data Portability Competition"
+            },
+            {
+                tag: "Smart Contracts",
+                title: "Search: Legal Issues of Smart Contracts",
+                desc: "Investigating the enforceability and interpretation of blockchain-based smart contracts.",
+                searchTerm: "Smart Contracts Legal Issues Blockchain"
+            }
+        ];
+
+        // --- 2. 法律资讯 (检索直达) ---
         const newsData = [
             {
                 img: "photo1.png", 
-                tag: "政策法规", // 标签
+                tag: "政策法规", 
                 color: "blue",
-                // 【已替换】使用网信办最权威的生成式AI管理办法
-                title: "国家网信办等七部门联合发布《生成式人工智能服务管理暂行办法》",
+                title: "国家网信办等七部门发布《生成式人工智能服务管理暂行办法》",
                 date: "2023-07",
                 source: "网信中国",
-                // 真实链接：中央网信办官网，绝对稳定
-                link: "http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm", 
-                desc: "这是我国首部针对生成式人工智能产业的规范性政策，明确了“划红线”与“设底线”的监管思路，促进生成式人工智能健康发展和规范应用。点击跳转官网阅读全文。"
+                link: "https://www.baidu.com/s?wd=生成式人工智能服务管理暂行办法 网信办", 
+                desc: "我国首部针对生成式人工智能产业的规范性政策，明确了监管红线与底线。点击搜索查看官方全文及解读。"
             },
             {
                 img: "photo2.png", 
@@ -295,9 +260,8 @@
                 title: "国家网信办发布《促进和规范数据跨境流动规定》",
                 date: "2024-03",
                 source: "网信中国",
-                // 真实链接：中国网信网（官方）
-                link: "http://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm", 
-                desc: "新规放宽了数据出境的安全评估门槛，明确了免予申报的具体场景，为企业数据跨境流动减负。点击阅读《规定》全文及官方答记者问。"
+                link: "https://www.baidu.com/s?wd=促进和规范数据跨境流动规定 网信办", 
+                desc: "放宽数据出境安全评估门槛，为企业减负。点击搜索查看相关政策详情及答记者问。"
             },
             {
                 img: "photo3.png", 
@@ -306,54 +270,64 @@
                 title: "最高检：严厉打击利用AI“换脸”实施的电信网络诈骗",
                 date: "2024-02",
                 source: "最高人民检察院",
-                // 真实链接：最高检官网
-                link: "https://www.spp.gov.cn/spp/xwfbh/wsfbt/202402/t20240221_645524.shtml", 
-                desc: "针对深度伪造（Deepfake）技术被用于诈骗的现象，检察机关将加强技术反制与法律适用，保护公民财产与肖像安全。点击查看最高检新闻发布会实录。"
+                link: "https://www.baidu.com/s?wd=最高检 打击AI换脸诈骗", 
+                desc: "针对深度伪造技术诈骗，检察机关加强技术反制与法律适用。点击搜索查看最高检新闻发布会实录。"
             }
         ];
 
         // --- 页面初始化 ---
         document.addEventListener('DOMContentLoaded', function () {
-            renderPapers(papersData);
+            renderPaperSection('zh-papers-grid', zhPapers, 'zh');
+            renderPaperSection('en-papers-grid', enPapers, 'en');
             renderNews(newsData);
             loadDynamics();
             setupNavigation();
         });
 
-        // --- 渲染论文 (弹窗) ---
-        function renderPapers(data) {
-            const grid = document.getElementById('papers-grid');
+        // --- 渲染论文检索卡片 (通用函数) ---
+        function renderPaperSection(containerId, data, type) {
+            const grid = document.getElementById(containerId);
             grid.innerHTML = ''; 
-            data.forEach(paper => {
-                const isAI = paper.category === 'ai';
-                const tagClass = isAI ? 'bg-indigo-100 text-indigo-700' : 'bg-teal-100 text-teal-700';
+            
+            data.forEach(item => {
+                const tagClass = type === 'en' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
+                const iconColor = type === 'en' ? 'text-purple-500' : 'text-blue-500';
+                // 构造百度学术搜索链接
+                const searchLink = `https://xueshu.baidu.com/s?wd=${encodeURIComponent(item.searchTerm)}`;
+                const btnText = type === 'en' ? 'Search in Baidu Academic' : '在百度学术中检索';
+
                 const card = document.createElement('div');
                 card.className = "bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full";
+                
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${paper.tag}</span>
-                        <span class="text-xs text-gray-400 font-mono tracking-wider">CNKI</span>
+                        <span class="text-xs font-bold px-2 py-1 rounded ${tagClass}">${item.tag}</span>
+                        <svg class="w-5 h-5 ${iconColor}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">${paper.title}</h3>
-                    <p class="text-sm text-gray-500 mb-4 flex-grow border-l-2 border-gray-200 pl-3 italic line-clamp-2">${paper.source}</p>
-                    <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
-                        <button onclick="openPaperModal(${paper.id})" class="flex-1 text-center px-4 py-2 bg-gray-50 text-blue-600 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors">查看摘要</button>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">${item.title}</h3>
+                    <p class="text-sm text-gray-500 mb-4 flex-grow border-l-2 border-gray-200 pl-3 italic">${item.desc}</p>
+                    <div class="mt-auto pt-4 border-t border-gray-50">
+                        <a href="${searchLink}" target="_blank" class="block w-full text-center px-4 py-2 bg-gray-50 text-gray-700 text-sm font-medium rounded-lg hover:bg-${type === 'en' ? 'purple' : 'blue'}-50 hover:text-${type === 'en' ? 'purple' : 'blue'}-600 transition-colors flex items-center justify-center gap-2">
+                            <span>${btnText}</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // --- 渲染新闻 (直达链接) ---
+        // --- 渲染新闻 (搜索直达) ---
         function renderNews(data) {
             const container = document.getElementById('legal-news-container');
             container.innerHTML = '';
             data.forEach(item => {
                 const tagClass = item.color === 'blue' ? 'bg-blue-100 text-blue-800' : item.color === 'green' ? 'bg-green-100 text-green-800' : 'bg-indigo-100 text-indigo-800';
                 const imgHtml = item.img ? `<img src="${item.img}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full bg-gray-200 flex items-center justify-center text-gray-400\\'>暂无图片</div>'" class="w-full md:w-56 h-48 md:h-auto rounded-lg object-cover shadow-sm border border-gray-100 transform group-hover:scale-105 transition-transform duration-500">` : `<div class="w-full md:w-56 h-48 md:h-auto bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">暂无图片</div>`;
+                
                 const card = document.createElement('a');
                 card.href = item.link;
-                card.target = "_blank"; // 新窗口打开
+                card.target = "_blank"; 
                 card.className = "bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer group no-underline block overflow-hidden";
                 card.innerHTML = `
                     <div class="flex-shrink-0 relative overflow-hidden rounded-lg w-full md:w-56 h-48 md:h-auto">${imgHtml}</div>
@@ -366,37 +340,12 @@
                         <p class="text-gray-600 text-sm mt-3 leading-relaxed line-clamp-2">${item.desc}</p>
                         <div class="mt-4 text-xs text-gray-400 flex items-center border-t border-gray-50 pt-3">
                             <span class="bg-gray-100 px-2 py-1 rounded text-gray-500">${item.source}</span>
-                            <span class="text-blue-600 ml-auto font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center">阅读原文 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                            <span class="text-blue-600 ml-auto font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center">点击搜索详情 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
-        }
-
-        // --- 论文弹窗逻辑 ---
-        function openPaperModal(id) {
-            const paper = papersData.find(p => p.id === id);
-            if (!paper) return;
-            document.getElementById('modal-title').innerText = paper.title;
-            document.getElementById('modal-source').innerText = paper.source;
-            document.getElementById('modal-desc').innerText = paper.desc;
-            document.getElementById('modal-tag').innerText = paper.tag;
-            document.getElementById('modal-link').href = paper.link;
-            const modal = document.getElementById('content-modal');
-            modal.classList.remove('hidden');
-            const panel = modal.querySelector('.transform');
-            panel.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { panel.classList.remove('scale-95', 'opacity-0'); panel.classList.add('scale-100', 'opacity-100'); }, 10);
-        }
-
-        function closeModal() { document.getElementById('content-modal').classList.add('hidden'); }
-
-        // --- 筛选 ---
-        function filterPapers(type, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-blue-600', 'text-white', 'shadow-md'); b.classList.add('bg-gray-100', 'text-gray-600'); });
-            btn.classList.remove('bg-gray-100', 'text-gray-600'); btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
-            if (type === 'all') { renderPapers(papersData); } else { const filtered = papersData.filter(p => p.category === type); renderPapers(filtered); }
         }
 
         // --- 侧边动态 ---
